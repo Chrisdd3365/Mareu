@@ -15,6 +15,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder>  {
     //-- PROPERTIES
     private final List<Meeting> mMeetings;
@@ -55,7 +56,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
 
-        holder.mMeetingTitle.setText(meeting.getTopic());
+        holder.mMeetingTitle.setText(meeting.getTopic() + meeting.getTime() + meeting.getPlace());
 
 //        Glide.with(holder.mMeetingAvatar.getContext())
 //                .load(neighbour.getAvatarUrl())

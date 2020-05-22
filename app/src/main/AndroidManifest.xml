@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".AddMeetingActivity"
+            android:label="@string/activity_new_meeting"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".ListMeetingActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">

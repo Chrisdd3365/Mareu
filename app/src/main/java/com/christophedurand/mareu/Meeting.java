@@ -3,6 +3,7 @@ package com.christophedurand.mareu;
 import java.io.Serializable;
 import java.util.List;
 
+
 /**
  * Model object representing a Reunion
  */
@@ -10,10 +11,13 @@ public class Meeting implements Serializable {
     //-- PROPERTIES
     /** Time of the reunion */
     private String time;
+
     /** Place where the reunion will take place */
     private String place;
+
     /** Topic of the reunion */
     private String topic;
+
     /** People who will attend to the reunion */
     private List<String> participants;
 

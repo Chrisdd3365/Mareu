@@ -14,11 +14,13 @@ import androidx.fragment.app.FragmentActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 
 public class AddMeetingActivity extends AppCompatActivity {
     //-- PROPERTIES
@@ -31,12 +33,13 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputLayout timeInput;
     @BindView(R.id.placeLyt)
     TextInputLayout placeInput;
-    @BindView(R.id.placeLyt)
+    @BindView(R.id.participantsLyt)
     TextInputLayout participantsInput;
     @BindView(R.id.create)
     MaterialButton createMeetingButton;
 
-    private List<String> mMeetingParticipants;
+    private MeetingApiService mApiService;
+    private List<String> mMeetingParticipants = new ArrayList<>();
     //private String mNeighbourImage;
 
     @Override
@@ -44,7 +47,8 @@ public class AddMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_meeting);
         ButterKnife.bind(this);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        mApiService = DI.getMeetingApiService();
         init();
     }
 
@@ -78,12 +82,17 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.create)
     void createMeeting() {
+        mMeetingParticipants.add(participantsInput.getEditText().getText().toString());
+
         Meeting meeting = new Meeting(
                 topicInput.getEditText().getText().toString(),
                 timeInput.getEditText().getText().toString(),
                 placeInput.getEditText().getText().toString(),
                 mMeetingParticipants
         );
+
+        mApiService.createMeeting(meeting);
+
         finish();
     }
 

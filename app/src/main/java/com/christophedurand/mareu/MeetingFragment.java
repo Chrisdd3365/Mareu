@@ -2,6 +2,7 @@ package com.christophedurand.mareu;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.io.Serializable;
 import java.util.List;
 
-public class MeetingFragment extends Fragment implements ListMeetingsInterface {
 
+public class MeetingFragment extends Fragment implements ListMeetingsInterface {
     //-- PROPERTIES
     private List<Meeting> mMeetings;
     private RecyclerView mRecyclerView;
@@ -36,12 +37,11 @@ public class MeetingFragment extends Fragment implements ListMeetingsInterface {
         return fragment;
     }
 
-
     //-- VIEW LIFE CYCLE
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        Log.d("debug im here", "fragment");
     }
 
     @Override
@@ -94,4 +94,5 @@ public class MeetingFragment extends Fragment implements ListMeetingsInterface {
         mMeetings.remove(meeting);
         initList();
     }
+
 }
