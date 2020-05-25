@@ -1,7 +1,5 @@
 package com.christophedurand.mareu;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;

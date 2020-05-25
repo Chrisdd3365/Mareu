@@ -32,8 +32,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         // UI
         @BindView(R.id.item_list_avatar)
         public ImageView mMeetingAvatar;
-        @BindView(R.id.item_list_name)
+        @BindView(R.id.item_list_title)
         public TextView mMeetingTitle;
+        @BindView(R.id.item_list_participants)
+        public TextView mMeetingParticipants;
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
 
@@ -56,19 +58,19 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
 
-        holder.mMeetingTitle.setText(meeting.getTopic() + meeting.getTime() + meeting.getPlace());
+        holder.mMeetingTitle.setText(meeting.getTopic() + " - " + meeting.getDate() + " - " + meeting.getTime() + " - " + meeting.getPlace());
 
-//        Glide.with(holder.mMeetingAvatar.getContext())
-//                .load(neighbour.getAvatarUrl())
-//                .apply(RequestOptions.circleCropTransform())
-//                .into(holder.mNeighbourAvatar);
+        StringBuilder participantsString = new StringBuilder();
+        for (int participant = 0; participant<meeting.getParticipants().size(); participant++) {
+            participantsString.append(meeting.getParticipants().get(participant) + ", ");
+        }
+        holder.mMeetingParticipants.setText(participantsString.toString());
 
         holder.mDeleteButton.setOnClickListener((View v) -> {
             mListener.onDeleteMeeting(meeting);
         });
-
-
     }
+
     // VIEW HOLDER METHODS
     @Override
     public int getItemCount() {

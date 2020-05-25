@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class Meeting implements Serializable {
     //-- PROPERTIES
+    /** Date of the reunion */
+    private String date;
+
     /** Time of the reunion */
     private String time;
 
@@ -23,22 +26,26 @@ public class Meeting implements Serializable {
 
     /**
      * Constructor
+     * @param date
      * @param time
      * @param place
      * @param topic
      * @param participants
      */
-    public Meeting(String time, String place, String topic,
+    public Meeting(String date, String time, String place, String topic,
                      List<String> participants) {
+        this.date = date;
         this.time = time;
         this.place = place;
         this.topic = topic;
         this.participants = participants;
     }
 
-    public String getTime() {
-        return time;
-    }
+    public String getDate() { return date; }
+
+    public void setDate(String date) { this.date = date; }
+
+    public String getTime() { return time; }
 
     public void setTime(String time) {
         this.time = time;

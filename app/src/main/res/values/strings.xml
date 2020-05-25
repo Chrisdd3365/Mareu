@@ -1,10 +1,13 @@
 <resources>
     <string name="app_name">Ma réu</string>
     <string name="action_settings">Settings</string>
+    <string name="createMeeting">Créer</string>
+    <string name="activity_new_meeting">Nouvelle réunion</string>
+
+    //-- HINTS
+    <string name="hint_date">Date</string>
     <string name="hint_time">Heure</string>
     <string name="hint_place">Lieu</string>
     <string name="hint_topic">Sujet</string>
     <string name="hint_participants">Participants</string>
-    <string name="createMeeting">Créer</string>
-    <string name="activity_new_meeting">Nouvelle réunion</string>
 </resources>

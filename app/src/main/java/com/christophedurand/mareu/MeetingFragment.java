@@ -2,7 +2,6 @@ package com.christophedurand.mareu;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +40,7 @@ public class MeetingFragment extends Fragment implements ListMeetingsInterface {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Log.d("debug im here", "fragment");
+
     }
 
     @Override
