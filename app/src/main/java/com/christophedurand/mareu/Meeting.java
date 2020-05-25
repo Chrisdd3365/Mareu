@@ -1,6 +1,7 @@
 package com.christophedurand.mareu;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 
 
@@ -10,10 +11,7 @@ import java.util.List;
 public class Meeting implements Serializable {
     //-- PROPERTIES
     /** Date of the reunion */
-    private String date;
-
-    /** Time of the reunion */
-    private String time;
+    private Date date;
 
     /** Place where the reunion will take place */
     private String place;
@@ -27,29 +25,21 @@ public class Meeting implements Serializable {
     /**
      * Constructor
      * @param date
-     * @param time
      * @param place
      * @param topic
      * @param participants
      */
-    public Meeting(String date, String time, String place, String topic,
+    public Meeting(Date date, String place, String topic,
                      List<String> participants) {
         this.date = date;
-        this.time = time;
         this.place = place;
         this.topic = topic;
         this.participants = participants;
     }
 
-    public String getDate() { return date; }
+    public Date getDate() { return date; }
 
-    public void setDate(String date) { this.date = date; }
-
-    public String getTime() { return time; }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
+    public void setDate(Date date) { this.date = date; }
 
     public String getPlace() {
         return place;

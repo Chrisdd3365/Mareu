@@ -24,21 +24,21 @@
         app:layout_constraintStart_toEndOf="@+id/item_list_avatar"
         app:layout_constraintTop_toTopOf="@+id/item_list_avatar" >
 
-    <TextView
-        android:id="@+id/item_list_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:textStyle="bold"
-        android:text="eagegagagagar" />
+        <TextView
+            android:id="@+id/item_list_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textStyle="bold"
+            android:text="eagegagagagar" />
 
-    <TextView
-        android:id="@+id/item_list_participants"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:textStyle="bold"
-        android:text="efaaegaegaeg" />
+        <TextView
+            android:id="@+id/item_list_participants"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:textStyle="bold"
+            android:text="efaaegaegaeg" />
 
     </LinearLayout>
 

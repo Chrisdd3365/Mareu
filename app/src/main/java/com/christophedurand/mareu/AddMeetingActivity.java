@@ -20,6 +20,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -65,7 +66,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     TimePickerDialog.OnTimeSetListener time = (view, hour, minute) -> {
         myCalendar.set(Calendar.HOUR, hour);
         myCalendar.set(Calendar.MINUTE, minute);
-        updateTimeLabel(hour, minute);
+        updateTimeLabel();
     };
 
     //-- VIEW LIFE CYCLE
@@ -127,10 +128,9 @@ public class AddMeetingActivity extends AppCompatActivity {
     void createMeeting() {
         mMeetingParticipants.add(Objects.requireNonNull(participantsInput.getEditText()).getText().toString());
 
-        Meeting meeting = new Meeting(Objects.requireNonNull(dateInput.getEditText().getText().toString()),
-                Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
-                Objects.requireNonNull(timeInput.getEditText()).getText().toString(),
+        Meeting meeting = new Meeting((Date) Objects.requireNonNull(dateInput.getEditText()).getText(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
+                Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
                 mMeetingParticipants
         );
 
@@ -154,14 +154,17 @@ public class AddMeetingActivity extends AppCompatActivity {
      * Used to update label into date edit text
      */
     private void updateDateLabel() {
-        String myFormat = "MM/dd/yy";
+        String myFormat = "dd/MM/yy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
-        dateEditText.setText(sdf.format(myCalendar.getTime()));
+        dateEditText.setText(sdf.format(myCalendar.getTime() ) );
     }
 
-    private void updateTimeLabel(int selectedHour, int selectedMinute) {
-        timeEditText.setText(checkDigit(selectedHour) + ":" + checkDigit(selectedMinute));
+    private void updateTimeLabel() {
+        String myFormat = "HH:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+        timeEditText.setText(sdf.format(myCalendar.getTime() ) );
     }
 
     /**
