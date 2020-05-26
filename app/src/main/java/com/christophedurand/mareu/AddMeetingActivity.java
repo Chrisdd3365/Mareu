@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -20,7 +20,6 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -29,9 +28,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.christophedurand.mareu.Meeting.getRandomNumber;
+import static com.christophedurand.mareu.Meeting.setupAvatarsArrayList;
+
 public class AddMeetingActivity extends AppCompatActivity {
     //-- PROPERTIES
     // UI
+    @BindView(R.id.avatar)
+    ImageView avatarImageView;
     @BindView(R.id.topicLyt)
     TextInputLayout topicInput;
     @BindView(R.id.dateLyt)
@@ -48,11 +52,11 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputLayout participantsInput;
     @BindView(R.id.create)
     MaterialButton createMeetingButton;
-
+    // DATA
     private MeetingApiService mApiService;
     private List<String> mMeetingParticipants = new ArrayList<>();
+    private Integer mMeetingAvatar;
 
-    // TIME AND DATE PROPERTIES
     // CALENDAR
     final Calendar myCalendar = Calendar.getInstance();
     // DATE
@@ -78,26 +82,24 @@ public class AddMeetingActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
         mApiService = DI.getMeetingApiService();
 
         init();
+
+        generateMeetingAvatar();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home : {
-                finish();
-                return true;
-            }
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
     private void init() {
-        topicInput.getEditText().addTextChangedListener(new TextWatcher() {
+        Objects.requireNonNull(topicInput.getEditText()).addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
             @Override
@@ -112,14 +114,14 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     //-- ON CLICK
     @OnClick(R.id.date)
-    void dateEditTextIsTapped(View view) {
+    void dateEditTextIsTapped() {
         new DatePickerDialog(this, date, myCalendar
                 .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     @OnClick(R.id.time)
-    void timeEditTextIsTapped(View view) {
+    void timeEditTextIsTapped() {
         new TimePickerDialog(this, time, myCalendar.get(Calendar.HOUR),
                 myCalendar.get(Calendar.MINUTE), true).show();
     }
@@ -128,10 +130,12 @@ public class AddMeetingActivity extends AppCompatActivity {
     void createMeeting() {
         mMeetingParticipants.add(Objects.requireNonNull(participantsInput.getEditText()).getText().toString());
 
-        Meeting meeting = new Meeting((Date) Objects.requireNonNull(dateInput.getEditText()).getText(),
+        Meeting meeting = new Meeting(Objects.requireNonNull(dateInput.getEditText()).getText().toString(),
+                Objects.requireNonNull(timeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
-                mMeetingParticipants
+                mMeetingParticipants,
+                mMeetingAvatar
         );
 
         mApiService.createMeeting(meeting);
@@ -149,7 +153,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         ActivityCompat.startActivity(activity, intent, null);
     }
 
-
     /**
      * Used to update label into date edit text
      */
@@ -160,6 +163,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         dateEditText.setText(sdf.format(myCalendar.getTime() ) );
     }
 
+    /**
+     * Used to update label into time edit text
+     */
     private void updateTimeLabel() {
         String myFormat = "HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
@@ -167,13 +173,9 @@ public class AddMeetingActivity extends AppCompatActivity {
         timeEditText.setText(sdf.format(myCalendar.getTime() ) );
     }
 
-    /**
-     * Check if the current number is equal or lower to 9, then add a 0 before the checked number
-     * @param number
-     * @return
-     */
-    public String checkDigit(int number) {
-        return number <= 9 ? "0" + number : String.valueOf(number);
+    private void generateMeetingAvatar() {
+        mMeetingAvatar = setupAvatarsArrayList().get(getRandomNumber(0,5) );
+        avatarImageView.setImageResource(mMeetingAvatar);
     }
 
 }

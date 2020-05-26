@@ -1,5 +1,6 @@
 package com.christophedurand.mareu;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +11,15 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.christophedurand.mareu.Meeting.getRandomNumber;
+import static com.christophedurand.mareu.Meeting.setupAvatarsArrayList;
 
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder>  {
@@ -58,6 +64,8 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
 
+        holder.mMeetingAvatar.setImageResource(meeting.getAvatar());
+
         holder.mMeetingTitle.setText(meeting.getTopic() + " - " + meeting.getDate() + " - " + meeting.getTime() + " - " + meeting.getPlace());
 
         StringBuilder participantsString = new StringBuilder();
@@ -71,10 +79,12 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         });
     }
 
-    // VIEW HOLDER METHODS
+    //--  METHODS
     @Override
     public int getItemCount() {
         return mMeetings.size();
     }
+
+
 
 }
