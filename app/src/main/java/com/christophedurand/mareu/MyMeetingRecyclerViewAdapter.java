@@ -1,6 +1,5 @@
 package com.christophedurand.mareu;
 
-import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,15 +10,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.christophedurand.mareu.Meeting.getRandomNumber;
-import static com.christophedurand.mareu.Meeting.setupAvatarsArrayList;
 
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder>  {
@@ -66,13 +63,10 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
         holder.mMeetingAvatar.setImageResource(meeting.getAvatar());
 
-        holder.mMeetingTitle.setText(meeting.getTopic() + " - " + meeting.getDate() + " - " + meeting.getTime() + " - " + meeting.getPlace());
+        holder.mMeetingTitle.setText(meeting.getTopic() + " - " + meeting.getDate() + " - " +
+                meeting.getTime() + " - " + meeting.getPlace());
 
-        StringBuilder participantsString = new StringBuilder();
-        for (int participant = 0; participant<meeting.getParticipants().size(); participant++) {
-            participantsString.append(meeting.getParticipants().get(participant) + ", ");
-        }
-        holder.mMeetingParticipants.setText(participantsString.toString());
+        holder.mMeetingParticipants.setText(meeting.getParticipants());
 
         holder.mDeleteButton.setOnClickListener((View v) -> {
             mListener.onDeleteMeeting(meeting);
@@ -84,7 +78,5 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     public int getItemCount() {
         return mMeetings.size();
     }
-
-
 
 }

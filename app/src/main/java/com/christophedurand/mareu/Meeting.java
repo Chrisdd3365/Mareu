@@ -23,7 +23,7 @@ public class Meeting implements Serializable {
     private String topic;
 
     /** People who will attend to the reunion */
-    private List<String> participants;
+    private String participants;
 
     /** Avatar of the reunion */
     private Integer avatar;
@@ -32,13 +32,14 @@ public class Meeting implements Serializable {
     /**
      * Constructor
      * @param date
+     * @param time
      * @param place
      * @param topic
      * @param participants
      * @param avatar
      */
     public Meeting(String date, String time, String place, String topic,
-                     List<String> participants, Integer avatar) {
+                     String participants, Integer avatar) {
         this.date = date;
         this.time = time;
         this.place = place;
@@ -72,11 +73,11 @@ public class Meeting implements Serializable {
         this.topic = topic;
     }
 
-    public List<String> getParticipants() {
+    public String getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<String> participants) {
+    public void setParticipants(String participants) {
         this.participants = participants;
     }
 

@@ -18,9 +18,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -54,7 +52,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     MaterialButton createMeetingButton;
     // DATA
     private MeetingApiService mApiService;
-    private List<String> mMeetingParticipants = new ArrayList<>();
     private Integer mMeetingAvatar;
 
     // CALENDAR
@@ -68,7 +65,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     };
     // TIME
     TimePickerDialog.OnTimeSetListener time = (view, hour, minute) -> {
-        myCalendar.set(Calendar.HOUR, hour);
+        myCalendar.set(Calendar.HOUR_OF_DAY, hour);
         myCalendar.set(Calendar.MINUTE, minute);
         updateTimeLabel();
     };
@@ -115,8 +112,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     //-- ON CLICK
     @OnClick(R.id.date)
     void dateEditTextIsTapped() {
-        new DatePickerDialog(this, date, myCalendar
-                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+        new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
@@ -128,13 +124,11 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.create)
     void createMeeting() {
-        mMeetingParticipants.add(Objects.requireNonNull(participantsInput.getEditText()).getText().toString());
-
         Meeting meeting = new Meeting(Objects.requireNonNull(dateInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(timeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
-                mMeetingParticipants,
+                Objects.requireNonNull(participantsInput.getEditText()).getText().toString(),
                 mMeetingAvatar
         );
 
@@ -157,7 +151,7 @@ public class AddMeetingActivity extends AppCompatActivity {
      * Used to update label into date edit text
      */
     private void updateDateLabel() {
-        String myFormat = "dd/MM/yy";
+        String myFormat = "dd/MM/yyyy";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         dateEditText.setText(sdf.format(myCalendar.getTime() ) );
@@ -167,7 +161,7 @@ public class AddMeetingActivity extends AppCompatActivity {
      * Used to update label into time edit text
      */
     private void updateTimeLabel() {
-        String myFormat = "HH:mm";
+        String myFormat = "kk:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         timeEditText.setText(sdf.format(myCalendar.getTime() ) );

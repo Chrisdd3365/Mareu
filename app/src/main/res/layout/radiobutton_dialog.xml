@@ -6,23 +6,20 @@
     android:orientation="vertical">
 
     <RadioButton
-        android:id="@+id/rd_a"
+        android:id="@+id/radiobutton_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Par date" />
+        android:text="@string/radiobutton_string_date" />
 
     <RadioButton
-        android:id="@+id/rd_2"
+        android:id="@+id/radiobutton_place"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rd_b"
-        android:text="Par lieu" />
+        android:text="@string/radiobutton_string_place" />
 
     <Button
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ok_button"
-        android:layout_centerInParent="true"
-        android:text="OK" />
+        android:text="@string/button_string_ok" />
 
 </LinearLayout>

@@ -98,11 +98,8 @@
                 android:id="@+id/participants"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:lines="4"
-                android:minLines="4"
                 android:ems="10"
-                android:hint="@string/hint_participants"
-                android:inputType="textMultiLine" />
+                android:hint="@string/hint_participants" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton

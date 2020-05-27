@@ -1,17 +1,21 @@
 package com.christophedurand.mareu;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.Serializable;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 
@@ -80,8 +84,10 @@ public class MeetingFragment extends Fragment implements ListMeetingsInterface {
     /**
      * Update data in the list of meetings and recycler view adapter
      */
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void updateList(List<Meeting> meetings) {
         mMeetings = meetings;
+        Collections.sort(mMeetings, Comparator.comparing(Meeting::getPlace));
         myMeetingRecyclerViewAdapter.notifyDataSetChanged();
     }
 

@@ -1,22 +1,20 @@
 package com.christophedurand.mareu;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
-import android.view.Window;
-import android.widget.ImageButton;
+import android.util.Log;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -28,6 +26,7 @@ public class ListMeetingActivity extends AppCompatActivity {
     List<Meeting> listMeetings = new ArrayList<>();
 
     //-- VIEW LIFE CYCLE
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,19 +51,30 @@ public class ListMeetingActivity extends AppCompatActivity {
         AddMeetingActivity.navigate(this);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick(R.id.filter_image_button)
     void showFilterRadioButtonDialog() {
-        Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.radiobutton_dialog);
-        dialog.setTitle("Filtrer les réunions");
-        dialog.setCancelable(true);
-// there are a lot of settings, for dialog, check them all out!
-// set up radiobutton
-        RadioButton rdA = (RadioButton) dialog.findViewById(R.id.rd_a);
-        RadioButton rdB = (RadioButton) dialog.findViewById(R.id.rd_b);
+//        Dialog dialog = new Dialog(this);
+//
+//        dialog.setContentView(R.layout.radiobutton_dialog);
+//        dialog.setTitle("Filtrer les réunions");
+//        dialog.setCancelable(true);
+//
+//        RadioButton radioButtonDate = (RadioButton) dialog.findViewById(R.id.radiobutton_date);
+//        RadioButton radioButtonPlace = (RadioButton) dialog.findViewById(R.id.radiobutton_place);
+//
+//        dialog.show();
 
-// now that the dialog is set up, it's time to show it
-        dialog.show();
+
+//        Collections.sort(listMeetings, new Comparator<Meeting>() {
+//            public int compare(Meeting meeting1, Meeting meeting2) {
+//                return meeting1.getDate().compareTo(meeting2.getDate());
+//            }
+//        });
+        meetingFragment.updateList(listMeetings);
+
+
+        Log.d("im here", "testing sorted by date");
     }
 
     //-- METHODS

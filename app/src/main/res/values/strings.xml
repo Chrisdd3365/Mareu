@@ -10,4 +10,10 @@
     <string name="hint_place">Lieu</string>
     <string name="hint_topic">Sujet</string>
     <string name="hint_participants">Participants</string>
+
+    //-- RADIO BUTTONS
+    <string name="radiobutton_string_date">"Par Date"</string>
+    <string name="radiobutton_string_place">"Par Lieu"</string>
+    <string name="button_string_ok">"OK"</string>
+
 </resources>
