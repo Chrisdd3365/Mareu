@@ -1,4 +1,6 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.Model;
+
+import com.christophedurand.mareu.R;
 
 import java.io.Serializable;
 import java.util.ArrayList;

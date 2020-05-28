@@ -1,4 +1,6 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.Service;
+
+import com.christophedurand.mareu.Model.Meeting;
 
 import java.util.List;
 
@@ -6,7 +8,7 @@ import java.util.List;
 /**
  * Dummy mock for the Api
  */
-public class DummyMeetingApiService implements MeetingApiService  {
+public class DummyMeetingApiService implements MeetingApiService {
     //-- PROPERTIES
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();
 

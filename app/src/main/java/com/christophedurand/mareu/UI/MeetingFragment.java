@@ -1,4 +1,4 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.UI;
 
 import android.content.Context;
 import android.os.Build;
@@ -13,6 +13,10 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.MyMeetingRecyclerViewAdapter;
+import com.christophedurand.mareu.R;
 
 import java.io.Serializable;
 import java.util.Collections;

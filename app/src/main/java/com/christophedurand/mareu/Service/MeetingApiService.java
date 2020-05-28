@@ -1,4 +1,6 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.Service;
+
+import com.christophedurand.mareu.Model.Meeting;
 
 import java.util.List;
 

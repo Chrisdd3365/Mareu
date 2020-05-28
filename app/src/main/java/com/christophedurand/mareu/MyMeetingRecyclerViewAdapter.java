@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.UI.ListMeetingsInterface;
+
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;

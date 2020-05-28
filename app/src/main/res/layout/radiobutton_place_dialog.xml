@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="20dp"
+    android:orientation="vertical">
+
+    <RadioGroup
+        android:id="@+id/radio_group_places"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:onClick="onRadioButtonClicked"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomA"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="0"
+            android:text="@string/radiobutton_string_roomA" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomB"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="1"
+            android:text="@string/radiobutton_string_roomB" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="2"
+            android:text="@string/radiobutton_string_roomC" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomD"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="3"
+            android:text="@string/radiobutton_string_roomD" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomE"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="4"
+            android:text="@string/radiobutton_string_roomE" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomF"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="5"
+            android:text="@string/radiobutton_string_roomF" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_roomG"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:tag="6"
+            android:text="@string/radiobutton_string_roomG" />
+
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:backgroundTint="@color/colorBlue"
+        android:text="@string/button_string_ok" />
+
+</LinearLayout>

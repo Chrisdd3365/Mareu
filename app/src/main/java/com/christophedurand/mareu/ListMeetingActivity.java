@@ -11,6 +11,11 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.christophedurand.mareu.DI.DI;
+import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.Service.MeetingApiService;
+import com.christophedurand.mareu.UI.MeetingFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,10 +58,10 @@ public class ListMeetingActivity extends AppCompatActivity {
     @OnClick(R.id.filter_image_button)
     void showFilterRadioButtonDialog() {
         Dialog dialog = new Dialog(this);
-        dialog.setContentView(R.layout.radiobutton_dialog);
+        dialog.setContentView(R.layout.radiobutton_filter_dialog);
         dialog.setCancelable(true);
 
-        RadioGroup radioGroup = dialog.findViewById(R.id.radio_group);
+        RadioGroup radioGroup = dialog.findViewById(R.id.radio_group_filters);
         Button buttonOk = dialog.findViewById(R.id.button_ok);
 
         dialog.show();

@@ -1,5 +1,8 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.DI;
 
+
+import com.christophedurand.mareu.Service.DummyMeetingApiService;
+import com.christophedurand.mareu.Service.MeetingApiService;
 
 /**
  * Dependency injector to get instance of services

@@ -1,18 +1,25 @@
 package com.christophedurand.mareu;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import com.christophedurand.mareu.DI.DI;
+import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.Service.MeetingApiService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -26,8 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.christophedurand.mareu.Meeting.getRandomNumber;
-import static com.christophedurand.mareu.Meeting.setupAvatarsArrayList;
+import static com.christophedurand.mareu.Model.Meeting.getRandomNumber;
+import static com.christophedurand.mareu.Model.Meeting.setupAvatarsArrayList;
 
 public class AddMeetingActivity extends AppCompatActivity {
     //-- PROPERTIES
@@ -46,6 +53,8 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputEditText timeEditText;
     @BindView(R.id.placeLyt)
     TextInputLayout placeInput;
+    @BindView(R.id.place)
+    TextInputEditText placeEditText;
     @BindView(R.id.participantsLyt)
     TextInputLayout participantsInput;
     @BindView(R.id.create)
@@ -120,6 +129,29 @@ public class AddMeetingActivity extends AppCompatActivity {
     void timeEditTextIsTapped() {
         new TimePickerDialog(this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR),
                 myCalendar.get(Calendar.MINUTE), true).show();
+    }
+
+    @OnClick(R.id.place)
+    void placeEditTextIsTapped() {
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.radiobutton_place_dialog);
+        dialog.setCancelable(true);
+
+        RadioGroup radioGroup = dialog.findViewById(R.id.radio_group_places);
+        Button buttonOk = dialog.findViewById(R.id.button_ok);
+
+        dialog.show();
+
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            RadioButton radioButtonRoom = dialog.findViewById(checkedId);
+
+            int tag = Integer.parseInt((String) (radioButtonRoom.getTag() ) );
+
+            placeEditText.setText(getResources().getStringArray(R.array.places_titles)[tag]);
+        });
+
+        buttonOk.setOnClickListener(v -> dialog.dismiss());
+
     }
 
     @OnClick(R.id.create)

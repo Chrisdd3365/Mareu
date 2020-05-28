@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <RadioGroup
-        android:id="@+id/radio_group"
+        android:id="@+id/radio_group_filters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -33,8 +33,8 @@
         android:id="@+id/button_ok"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:backgroundTint="@color/colorBlue"
         android:text="@string/button_string_ok" />
-
 
 </LinearLayout>

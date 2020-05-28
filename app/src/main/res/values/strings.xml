@@ -14,6 +14,13 @@
     //-- RADIO BUTTONS
     <string name="radiobutton_string_date">"Par Date"</string>
     <string name="radiobutton_string_place">"Par Lieu"</string>
+    <string name="radiobutton_string_roomA">"Salle Alpha"</string>
+    <string name="radiobutton_string_roomB">"Salle Bravo"</string>
+    <string name="radiobutton_string_roomC">"Salle Charlie"</string>
+    <string name="radiobutton_string_roomD">"Salle Delta"</string>
+    <string name="radiobutton_string_roomE">"Salle Echo"</string>
+    <string name="radiobutton_string_roomF">"Salle Foxtrot"</string>
+    <string name="radiobutton_string_roomG">"Salle Golf"</string>
     <string name="button_string_ok">"OK"</string>
 
 </resources>
