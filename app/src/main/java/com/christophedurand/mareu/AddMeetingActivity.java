@@ -112,20 +112,19 @@ public class AddMeetingActivity extends AppCompatActivity {
     //-- ON CLICK
     @OnClick(R.id.date)
     void dateEditTextIsTapped() {
-        new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+        new DatePickerDialog(this, R.style.DialogTheme, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     @OnClick(R.id.time)
     void timeEditTextIsTapped() {
-        new TimePickerDialog(this, time, myCalendar.get(Calendar.HOUR),
+        new TimePickerDialog(this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR),
                 myCalendar.get(Calendar.MINUTE), true).show();
     }
 
     @OnClick(R.id.create)
     void createMeeting() {
-        Meeting meeting = new Meeting(Objects.requireNonNull(dateInput.getEditText()).getText().toString(),
-                Objects.requireNonNull(timeInput.getEditText()).getText().toString(),
+        Meeting meeting = new Meeting(myCalendar.getTime(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(participantsInput.getEditText()).getText().toString(),

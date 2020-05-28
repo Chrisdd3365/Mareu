@@ -5,21 +5,36 @@
     android:padding="20dp"
     android:orientation="vertical">
 
-    <RadioButton
-        android:id="@+id/radiobutton_date"
+    <RadioGroup
+        android:id="@+id/radio_group"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/radiobutton_string_date" />
+        android:layout_gravity="center"
+        android:onClick="onRadioButtonClicked"
+        android:orientation="vertical">
 
-    <RadioButton
-        android:id="@+id/radiobutton_place"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/radiobutton_string_place" />
+        <RadioButton
+            android:id="@+id/radiobutton_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/radiobutton_string_date" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_place"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/radiobutton_string_place" />
+
+    </RadioGroup>
 
     <Button
+        android:id="@+id/button_ok"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorBlue"
         android:text="@string/button_string_ok" />
+
 
 </LinearLayout>

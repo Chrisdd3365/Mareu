@@ -29,6 +29,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/filter_list_white_24dp"
+                android:backgroundTint="@color/colorBlue"
                 android:layout_marginStart="280dp"/>
 
         </androidx.appcompat.widget.Toolbar>

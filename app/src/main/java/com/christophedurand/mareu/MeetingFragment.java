@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
 
 import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
@@ -85,9 +86,18 @@ public class MeetingFragment extends Fragment implements ListMeetingsInterface {
      * Update data in the list of meetings and recycler view adapter
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
-    public void updateList(List<Meeting> meetings) {
+    public void updateList(List<Meeting> meetings, RadioButton dateRadioButton, RadioButton placeRadioButton) {
         mMeetings = meetings;
-        Collections.sort(mMeetings, Comparator.comparing(Meeting::getPlace));
+
+        if (dateRadioButton.isChecked() ) {
+            Collections.sort(mMeetings, Comparator.comparing(Meeting::getDate));
+            placeRadioButton.setChecked(false);
+        }
+        else if (placeRadioButton.isChecked() ) {
+            Collections.sort(mMeetings, Comparator.comparing(Meeting::getPlace));
+            dateRadioButton.setChecked(false);
+        }
+
         myMeetingRecyclerViewAdapter.notifyDataSetChanged();
     }
 

@@ -11,7 +11,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -60,14 +59,21 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         final Meeting meeting = mMeetings.get(position);
+        String topic = meeting.getTopic();
+        String place = meeting.getPlace();
 
+        String myFormat = "dd/MM/yyyy kk:mm";
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+        String date = sdf.format(meeting.getDate());
+
+        // SETUP UI
         holder.mMeetingAvatar.setImageResource(meeting.getAvatar());
 
-        holder.mMeetingTitle.setText(meeting.getTopic() + " - " + meeting.getDate() + " - " +
-                meeting.getTime() + " - " + meeting.getPlace());
+        holder.mMeetingTitle.setText(topic + " - " + date + " - " + place);
 
         holder.mMeetingParticipants.setText(meeting.getParticipants());
 
+        // ON CLICK
         holder.mDeleteButton.setOnClickListener((View v) -> {
             mListener.onDeleteMeeting(meeting);
         });

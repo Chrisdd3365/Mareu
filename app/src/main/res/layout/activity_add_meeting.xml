@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_topic"
-                android:inputType="textPersonName" />
+                android:inputType="textCapWords" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -84,7 +84,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="@string/hint_place"
-                android:inputType="text" />
+                android:inputType="textCapWords"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -99,7 +99,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
-                android:hint="@string/hint_participants" />
+                android:hint="@string/hint_participants"
+                android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -110,6 +111,7 @@
             android:layout_gravity="center"
             app:cornerRadius="20dp"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/colorBlue"
             android:text="@string/createMeeting"/>
 
     </LinearLayout>

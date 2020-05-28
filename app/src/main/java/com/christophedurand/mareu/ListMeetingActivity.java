@@ -3,16 +3,15 @@ package com.christophedurand.mareu;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -42,7 +41,6 @@ public class ListMeetingActivity extends AppCompatActivity {
         meetingFragment = MeetingFragment.newInstance(listMeetings);
 
         initFragment(meetingFragment);
-
     }
 
     //-- ON CLICK
@@ -54,27 +52,25 @@ public class ListMeetingActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.N)
     @OnClick(R.id.filter_image_button)
     void showFilterRadioButtonDialog() {
-//        Dialog dialog = new Dialog(this);
-//
-//        dialog.setContentView(R.layout.radiobutton_dialog);
-//        dialog.setTitle("Filtrer les réunions");
-//        dialog.setCancelable(true);
-//
-//        RadioButton radioButtonDate = (RadioButton) dialog.findViewById(R.id.radiobutton_date);
-//        RadioButton radioButtonPlace = (RadioButton) dialog.findViewById(R.id.radiobutton_place);
-//
-//        dialog.show();
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.radiobutton_dialog);
+        dialog.setCancelable(true);
 
+        RadioGroup radioGroup = dialog.findViewById(R.id.radio_group);
+        Button buttonOk = dialog.findViewById(R.id.button_ok);
 
-//        Collections.sort(listMeetings, new Comparator<Meeting>() {
-//            public int compare(Meeting meeting1, Meeting meeting2) {
-//                return meeting1.getDate().compareTo(meeting2.getDate());
-//            }
-//        });
-        meetingFragment.updateList(listMeetings);
+        dialog.show();
 
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                RadioButton radioButtonDate = dialog.findViewById(R.id.radiobutton_date);
+                RadioButton radioButtonPlace = dialog.findViewById(R.id.radiobutton_place);
 
-        Log.d("im here", "testing sorted by date");
+                meetingFragment.updateList(listMeetings, radioButtonDate, radioButtonPlace);
+            }
+        });
+
+        buttonOk.setOnClickListener(v -> dialog.dismiss());
     }
 
     //-- METHODS
