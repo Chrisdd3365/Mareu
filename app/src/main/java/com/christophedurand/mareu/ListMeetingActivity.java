@@ -3,6 +3,7 @@ package com.christophedurand.mareu;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -62,16 +63,17 @@ public class ListMeetingActivity extends AppCompatActivity {
         dialog.setCancelable(true);
 
         RadioGroup radioGroup = dialog.findViewById(R.id.radio_group_filters);
+        RadioButton radioButtonDate = dialog.findViewById(R.id.radiobutton_date);
+        RadioButton radioButtonPlace = dialog.findViewById(R.id.radiobutton_place);
+        RadioButton radioButtonWithoutFilter = dialog.findViewById(R.id.radiobutton_without_filter);
         Button buttonOk = dialog.findViewById(R.id.button_ok);
 
         dialog.show();
 
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
-                RadioButton radioButtonDate = dialog.findViewById(R.id.radiobutton_date);
-                RadioButton radioButtonPlace = dialog.findViewById(R.id.radiobutton_place);
-
-                meetingFragment.updateList(listMeetings, radioButtonDate, radioButtonPlace);
+                meetingFragment.filterListButtonIsTapped(radioButtonDate, radioButtonPlace, radioButtonWithoutFilter);
+                dialog.dismiss();
             }
         });
 

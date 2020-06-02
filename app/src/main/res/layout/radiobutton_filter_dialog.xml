@@ -17,15 +17,22 @@
             android:id="@+id/radiobutton_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|start"
             android:text="@string/radiobutton_string_date" />
 
         <RadioButton
             android:id="@+id/radiobutton_place"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|start"
             android:text="@string/radiobutton_string_place" />
+
+        <RadioButton
+            android:id="@+id/radiobutton_without_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:text="@string/radiobutton_string_without_filter" />
 
     </RadioGroup>
 
