@@ -11,6 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -18,6 +19,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import static org.junit.Assert.*;
 
@@ -30,19 +32,17 @@ public class MeetingServiceTest {
     //-- PROPERTIES
     private MeetingApiService service;
     private List<Meeting> meetings = new ArrayList<>();
+    private Calendar myCalendar;
 
     //-- SETUP
-    // INIT MEETING API SERVICE INSTANCE
     @Before
     public void setup() {
         service = DI.getNewInstanceApiService();
         meetings = service.getMeetings();
+        myCalendar = Calendar.getInstance();
     }
 
     private Date setDate(int day, int month, int year, int hour, int minute) {
-        // GET INSTANCE OF CALENDAR
-        final Calendar myCalendar = Calendar.getInstance();
-
         // SET A DATE WITH CALENDAR INSTANCE
         myCalendar.set(Calendar.DAY_OF_MONTH, day);
         myCalendar.set(Calendar.MONTH, month);
@@ -106,50 +106,88 @@ public class MeetingServiceTest {
 
     // UNIT TESTING MEETINGS ARRAY LIST IS SORTED BY DATE
     @Test
-    public void meetingsIsSortedByDateWithSuccess() {
+    public void meetingsIsFilteredByDateWithSuccess() {
         // INIT 4 INSTANCES OF MEETING INTO MEETINGS LIST
         meetings = Arrays.asList(
-                new Meeting(setDate(29,05,2020,13,01), "Salle Alpha", "Réunion projet X",
+                new Meeting(setDate(03,06,2020,13,00), "Salle Alpha", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_orange_64dp),
-                new Meeting(setDate(27,05,2020,14,01), "Salle Bravo", "Réunion projet X",
+                new Meeting(setDate(04,06,2020,14,00), "Salle Bravo", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_green_64dp),
-                new Meeting(setDate(29,04,2020,15,01), "Salle Charlie", "Réunion projet X",
+                new Meeting(setDate(03,06,2020,15,00), "Salle Charlie", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp),
-                new Meeting(setDate(29,05,2020,12,01), "Salle Delta", "Réunion projet X",
+                new Meeting(setDate(05,7,2020,12,00), "Salle Delta", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_blue_64dp)
         );
 
-        // INIT EXPECTED MEETINGS ARRAY LIST
-        List<Meeting> expectedMeetings = new ArrayList<>(meetings);
+        // INIT FILTERED MEETINGS ARRAY LIST
+        List<Meeting> filteredMeetings = new ArrayList<>();
 
-        // EXPECTED MEETINGS IS SORTED BY DATE
-        Collections.sort(expectedMeetings, Comparator.comparing(Meeting::getDate));
+        for (int i = 0; i<meetings.size(); i++) {
+            Meeting meetingFiltered = meetings.get(i);
+            Date meetingFilteredDate = meetingFiltered.getDate();
+            Date myCalendarFilteredDate = setDate(03, 06, 2020, 00, 00);
 
-        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
+            String myFormat = "dd/MM/yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+            String meetingFilteredDateString = sdf.format(meetingFilteredDate);
+            String myCalendarFilteredDateString = sdf.format(myCalendarFilteredDate);
+
+            // ADD INTO FILTERED MEETINGS IF IT'S MATCHING
+            if (meetingFilteredDateString.equals(myCalendarFilteredDateString) ) {
+                filteredMeetings.add(meetingFiltered);
+            }
+        }
+
+        // INIT MEETINGS WITH FILTERED MEETINGS
+        meetings = filteredMeetings;
+
+        // EXPECTED MEETINGS IS SORTED BY HOUR
+        Collections.sort(filteredMeetings, Comparator.comparing(Meeting::getDate));
+
+        assertEquals(2, filteredMeetings.size());
+        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(filteredMeetings.toArray() ) );
     }
 
     // UNIT TESTING MEETINGS ARRAY LIST IS SORTED BY PLACE
     @Test
-    public void meetingsIsSortedByPlaceWithSuccess() {
+    public void meetingsIsFilteredByPlaceWithSuccess() {
         // INIT 4 INSTANCES OF MEETING INTO MEETINGS LIST
         meetings = Arrays.asList(
                 new Meeting(setDate(29,05,2020,13,01), "Salle Delta", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_orange_64dp),
-                new Meeting(setDate(27,05,2020,14,01), "Salle Charlie", "Réunion projet X",
+                new Meeting(setDate(27,05,2020,14,01), "Salle Beta", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_green_64dp),
-                new Meeting(setDate(29,04,2020,15,01), "Salle Bravo", "Réunion projet X",
+                new Meeting(setDate(29,04,2020,15,01), "Salle Alpha", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp),
                 new Meeting(setDate(29,05,2020,12,01), "Salle Alpha", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_blue_64dp)
         );
 
-        // INIT EXPECTED MEETINGS ARRAY LIST
-        List<Meeting> expectedMeetings = new ArrayList<>(meetings);
+        // INIT FILTERED MEETINGS ARRAY LIST
+        List<Meeting> filteredMeetings = new ArrayList<>();
 
-        // EXPECTED MEETINGS IS SORTED BY PLACE
-        Collections.sort(expectedMeetings, Comparator.comparing(Meeting::getPlace));
+        // INIT FILTER BY PLACE STRING
+        String titlePlace = "Salle Alpha";
 
-        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(expectedMeetings.toArray()));
+        for (int i = 0; i<meetings.size(); i++) {
+            Meeting meetingFiltered = meetings.get(i);
+            String meetingPlace = meetingFiltered.getPlace();
+
+            // ADD INTO FILTERED MEETINGS IF IT'S MATCHING
+            if (meetingPlace.equals(titlePlace) ) {
+                filteredMeetings.add(meetingFiltered);
+            }
+        }
+
+        // INIT MEETINGS WITH FILTERED MEETINGS
+        meetings = filteredMeetings;
+
+        // EXPECTED MEETINGS IS SORTED BY HOUR
+        Collections.sort(meetings, Comparator.comparing(Meeting::getDate));
+
+        assertEquals(2, filteredMeetings.size());
+        assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(filteredMeetings.toArray() ) );
     }
 
 }
