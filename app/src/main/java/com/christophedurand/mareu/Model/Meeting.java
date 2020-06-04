@@ -38,7 +38,7 @@ public class Meeting implements Serializable {
      * @param avatar
      */
     public Meeting(Date date, String place, String topic,
-                     String participants, Integer avatar) {
+                   String participants, Integer avatar) {
         this.date = date;
         this.place = place;
         this.topic = topic;

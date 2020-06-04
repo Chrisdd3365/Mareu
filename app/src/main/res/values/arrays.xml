@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <string-array name="places_titles">
         <item>Salle Alpha</item>
         <item>Salle Bravo</item>
@@ -10,5 +9,4 @@
         <item>Salle Foxtrot</item>
         <item>Salle Golf</item>
     </string-array>
-
 </resources>

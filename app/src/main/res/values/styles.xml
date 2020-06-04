@@ -1,5 +1,4 @@
 <resources>
-
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <!-- Customize your theme here. -->
@@ -29,5 +28,4 @@
         <item name="android:textColor">@color/colorBlue</item>
         <item name="android:backgroundTint">@color/colorWhite</item>
     </style>
-
 </resources>

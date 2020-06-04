@@ -155,7 +155,7 @@ public class ListMeetingActivity extends AppCompatActivity implements ListMeetin
      * Update data in the list of meetings and recycler view adapter
      */
     private void filterListButtonIsTapped(RadioButton dateRadioButton, RadioButton placeRadioButton,
-                                         RadioButton withoutFilterRadioButton) {
+                                          RadioButton withoutFilterRadioButton) {
         if (dateRadioButton.isChecked() ) {
             placeRadioButton.setChecked(false);
             withoutFilterRadioButton.setChecked(false);
