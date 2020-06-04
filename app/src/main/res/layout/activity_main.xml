@@ -28,9 +28,9 @@
                 android:id="@+id/filter_image_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="end"
                 android:src="@drawable/filter_list_white_24dp"
-                android:backgroundTint="@color/colorBlue"
-                android:layout_marginStart="280dp"/>
+                android:backgroundTint="@color/colorBlue" />
 
         </androidx.appcompat.widget.Toolbar>
 
