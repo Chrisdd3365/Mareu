@@ -8,7 +8,7 @@
     <string name="hint_date">Date</string>
     <string name="hint_time">Heure</string>
     <string name="hint_place">Lieu</string>
-    <string name="hint_topic">Sujet</string>
+    <string name="hint_topic">Sujet de la réunion</string>
     <string name="hint_participants">Participants</string>
 
     //-- RADIO BUTTONS

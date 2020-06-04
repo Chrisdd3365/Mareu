@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.format.DateFormat;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -76,6 +77,7 @@ public class AddMeetingActivity extends AppCompatActivity {
     TimePickerDialog.OnTimeSetListener time = (view, hour, minute) -> {
         myCalendar.set(Calendar.HOUR_OF_DAY, hour);
         myCalendar.set(Calendar.MINUTE, minute);
+        DateFormat.is24HourFormat(AddMeetingActivity.this);
         updateTimeLabel();
     };
 
@@ -121,14 +123,17 @@ public class AddMeetingActivity extends AppCompatActivity {
     //-- ON CLICK
     @OnClick(R.id.date)
     void dateEditTextIsTapped() {
-        new DatePickerDialog(this, R.style.DialogTheme, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH));
+        datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+        datePickerDialog.show();
     }
 
     @OnClick(R.id.time)
     void timeEditTextIsTapped() {
-        new TimePickerDialog(this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR),
-                myCalendar.get(Calendar.MINUTE), true).show();
+        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR),
+                myCalendar.get(Calendar.MINUTE), true);
+        timePickerDialog.show();
     }
 
     @OnClick(R.id.place)
@@ -192,7 +197,7 @@ public class AddMeetingActivity extends AppCompatActivity {
      * Used to update label into time edit text
      */
     private void updateTimeLabel() {
-        String myFormat = "kk:mm";
+        String myFormat = "HH:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
 
         timeEditText.setText(sdf.format(myCalendar.getTime() ) );
