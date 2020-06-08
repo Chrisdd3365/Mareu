@@ -1,4 +1,4 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.UI;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.christophedurand.mareu.Model.Meeting;
-import com.christophedurand.mareu.UI.ListMeetingsInterface;
+import com.christophedurand.mareu.R;
 
 import java.text.SimpleDateFormat;
 import java.util.List;

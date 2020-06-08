@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.christophedurand.mareu.ListMeetingActivity;
+import com.christophedurand.mareu.UI.ListMeetingActivity;
 import com.christophedurand.mareu.R;
 import com.christophedurand.mareu.utils.DeleteViewAction;
 
@@ -67,7 +67,7 @@ public class MeetingsListTest {
         // We set the date of the meeting
         onView(withId(R.id.date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).
-                perform(PickerActions.setDate(2020, 06, 03));
+                perform(PickerActions.setDate(2021, 06, 03));
         onView(withId(android.R.id.button1) ).perform(ViewActions.click() );
         // We set the time of the meeting
         onView(withId(R.id.time) ).perform(ViewActions.click() );
@@ -103,7 +103,7 @@ public class MeetingsListTest {
         // We set the date of the meeting
         onView(withId(R.id.date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).
-                perform(PickerActions.setDate(2020, 06, 03));
+                perform(PickerActions.setDate(2021, 06, 03));
         onView(withId(android.R.id.button1) ).perform(ViewActions.click());
         // We set the time of the meeting
         onView(withId(R.id.time) ).perform(ViewActions.click() );
@@ -145,7 +145,7 @@ public class MeetingsListTest {
         // We set the date of the meeting
         onView(withId(R.id.date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).
-                perform(PickerActions.setDate(2020, 06, 04));
+                perform(PickerActions.setDate(2021, 06, 04));
         onView(withId(android.R.id.button1) ).perform(ViewActions.click());
         // We set the time of the meeting
         onView(withId(R.id.time) ).perform(ViewActions.click() );
@@ -168,7 +168,7 @@ public class MeetingsListTest {
         // We set the filter by date
         onView(withId(R.id.radiobutton_date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).
-                perform(PickerActions.setDate(2020, 06, 03));
+                perform(PickerActions.setDate(2021, 06, 03));
         onView(withId(android.R.id.button1) ).perform(ViewActions.click() );
 
         // Then: It only displays the filtered meeting into the list
@@ -202,7 +202,7 @@ public class MeetingsListTest {
         // We set the filter by date
         onView(withId(R.id.radiobutton_date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).
-                perform(PickerActions.setDate(2020, 06, 03));
+                perform(PickerActions.setDate(2021, 06, 03));
         onView(withId(android.R.id.button1) ).perform(ViewActions.click() );
         // We perform a click on the filter button
         onView(withId(R.id.filter_image_button) ).perform(ViewActions.click() );
@@ -231,7 +231,7 @@ public class MeetingsListTest {
         // We set the filter by date
         onView(withId(R.id.radiobutton_date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).
-                perform(PickerActions.setDate(2020, 06, 04));
+                perform(PickerActions.setDate(2021, 06, 04));
         onView(withId(android.R.id.button1) ).perform(ViewActions.click() );
 
         // When: We perform a click on the delete button

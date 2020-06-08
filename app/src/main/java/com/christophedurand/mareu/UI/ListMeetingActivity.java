@@ -1,4 +1,4 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.UI;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.christophedurand.mareu.DI.DI;
 import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.R;
 import com.christophedurand.mareu.Service.MeetingApiService;
-import com.christophedurand.mareu.UI.ListMeetingsInterface;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

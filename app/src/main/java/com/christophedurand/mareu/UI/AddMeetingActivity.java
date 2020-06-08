@@ -1,4 +1,4 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.UI;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,6 +20,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.christophedurand.mareu.DI.DI;
 import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.R;
 import com.christophedurand.mareu.Service.MeetingApiService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
