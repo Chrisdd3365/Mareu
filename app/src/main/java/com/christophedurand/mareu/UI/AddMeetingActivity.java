@@ -124,7 +124,12 @@ public class AddMeetingActivity extends AppCompatActivity {
     //-- ON CLICK
     @OnClick(R.id.date)
     void dateEditTextIsTapped() {
-        DatePickerDialog datePickerDialog = new DatePickerDialog(this, R.style.DialogTheme, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+        DatePickerDialog datePickerDialog = new DatePickerDialog(
+                this,
+                R.style.DialogTheme,
+                date,
+                myCalendar.get(Calendar.YEAR),
+                myCalendar.get(Calendar.MONTH),
                 myCalendar.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
         datePickerDialog.show();
@@ -132,7 +137,11 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.time)
     void timeEditTextIsTapped() {
-        TimePickerDialog timePickerDialog = new TimePickerDialog(this, R.style.DialogTheme, time, myCalendar.get(Calendar.HOUR),
+        TimePickerDialog timePickerDialog = new TimePickerDialog(
+                this,
+                R.style.DialogTheme,
+                time,
+                myCalendar.get(Calendar.HOUR),
                 myCalendar.get(Calendar.MINUTE), true);
         timePickerDialog.show();
     }

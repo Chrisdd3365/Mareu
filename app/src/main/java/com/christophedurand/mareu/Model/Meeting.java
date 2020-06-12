@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Model object representing a Reunion
+ * Model object representing a Meeting
  */
 public class Meeting implements Serializable {
     //-- PROPERTIES

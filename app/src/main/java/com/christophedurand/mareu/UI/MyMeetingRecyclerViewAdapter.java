@@ -26,7 +26,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
     private final List<Meeting> mMeetings;
     private ListMeetingsInterface mListener;
 
-    //-- CONSTRUCTOR
+    //-- INIT
     public MyMeetingRecyclerViewAdapter(List<Meeting> items, ListMeetingsInterface listener) {
         mMeetings = items;
         mListener = listener;

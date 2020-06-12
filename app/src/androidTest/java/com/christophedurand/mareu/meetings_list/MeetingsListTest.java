@@ -99,7 +99,8 @@ public class MeetingsListTest {
 
         // When: We type the topic of the meeting
         onView(withId(R.id.topic) ).perform(ViewActions.click() );
-        onView(withId(R.id.topic) ).perform(ViewActions.typeText("Meeting to delete"), ViewActions.closeSoftKeyboard() );
+        onView(withId(R.id.topic) ).perform(ViewActions.typeText("Meeting to delete"),
+                ViewActions.closeSoftKeyboard() );
         // We set the date of the meeting
         onView(withId(R.id.date) ).perform(ViewActions.click() );
         onView(withClassName(Matchers.equalTo(DatePicker.class.getName() ) ) ).

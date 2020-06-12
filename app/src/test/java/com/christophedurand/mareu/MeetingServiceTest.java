@@ -71,7 +71,8 @@ public class MeetingServiceTest {
     @Test
     public void addMeetingWithSuccess() {
         // INIT MEETING
-        Meeting meeting = new Meeting(setDate(29, 05, 2020, 12,01), "Salle Bravo", "Réunion projet X",
+        Meeting meeting = new Meeting(setDate(29, 05, 2020, 12,01),
+                "Salle Bravo", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp);
 
         // ADD MEETING INTO MEETINGS
@@ -88,7 +89,8 @@ public class MeetingServiceTest {
     @Test
     public void deleteMeetingWithSuccess() {
         // INIT MEETING
-        Meeting meeting = new Meeting(setDate(29,05,2020,13,01), "Salle Bravo", "Réunion projet X",
+        Meeting meeting = new Meeting(setDate(29,05,2020,13,01),
+                "Salle Bravo", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp);
 
         // ADD MEETING INTO MEETINGS
@@ -109,13 +111,17 @@ public class MeetingServiceTest {
     public void meetingsIsFilteredByDateWithSuccess() {
         // INIT 4 INSTANCES OF MEETING INTO MEETINGS LIST
         meetings = Arrays.asList(
-                new Meeting(setDate(03,06,2020,13,00), "Salle Alpha", "Réunion projet X",
+                new Meeting(setDate(03,06,2020,13,00),
+                        "Salle Alpha", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_orange_64dp),
-                new Meeting(setDate(04,06,2020,14,00), "Salle Bravo", "Réunion projet X",
+                new Meeting(setDate(04,06,2020,14,00),
+                        "Salle Bravo", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_green_64dp),
-                new Meeting(setDate(03,06,2020,15,00), "Salle Charlie", "Réunion projet X",
+                new Meeting(setDate(03,06,2020,15,00),
+                        "Salle Charlie", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp),
-                new Meeting(setDate(05,7,2020,12,00), "Salle Delta", "Réunion projet X",
+                new Meeting(setDate(05,7,2020,12,00),
+                        "Salle Delta", "Réunion projet X",
                 "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_blue_64dp)
         );
 
@@ -154,13 +160,17 @@ public class MeetingServiceTest {
     public void meetingsIsFilteredByPlaceWithSuccess() {
         // INIT 4 INSTANCES OF MEETING INTO MEETINGS LIST
         meetings = Arrays.asList(
-                new Meeting(setDate(29,05,2020,13,01), "Salle Delta", "Réunion projet X",
+                new Meeting(setDate(29,05,2020,13,01),
+                        "Salle Delta", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_orange_64dp),
-                new Meeting(setDate(27,05,2020,14,01), "Salle Beta", "Réunion projet X",
+                new Meeting(setDate(27,05,2020,14,01),
+                        "Salle Beta", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_green_64dp),
-                new Meeting(setDate(29,04,2020,15,01), "Salle Alpha", "Réunion projet X",
+                new Meeting(setDate(29,04,2020,15,01),
+                        "Salle Alpha", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp),
-                new Meeting(setDate(29,05,2020,12,01), "Salle Alpha", "Réunion projet X",
+                new Meeting(setDate(29,05,2020,12,01),
+                        "Salle Alpha", "Réunion projet X",
                         "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_blue_64dp)
         );
 
