@@ -4,6 +4,9 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -214,8 +217,13 @@ public class AddMeetingActivity extends AppCompatActivity {
     }
 
     private void generateMeetingAvatar() {
-        mMeetingAvatar = setupAvatarsArrayList().get(getRandomNumber(0,5) );
-        avatarImageView.setImageResource(mMeetingAvatar);
+        ShapeDrawable circle = new ShapeDrawable( new OvalShape() );
+        circle.setIntrinsicHeight(60);
+        circle.setIntrinsicWidth(60);
+        circle.setBounds(new Rect(30, 30, 30, 30) );
+        mMeetingAvatar = setupAvatarsArrayList().get(getRandomNumber(0,6) );
+        circle.getPaint().setColor(mMeetingAvatar);
+        avatarImageView.setBackground(circle);
     }
 
 }

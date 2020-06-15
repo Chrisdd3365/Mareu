@@ -2,6 +2,7 @@ package com.christophedurand.mareu.Service;
 
 import com.christophedurand.mareu.Model.Meeting;
 
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -26,4 +27,21 @@ public interface MeetingApiService {
      * @param meeting
      */
     void createMeeting(Meeting meeting);
+
+    /**
+     * Filter meetings by date
+     * @param mMeetings
+     * @param filteredMeetings
+     * @param myCalendar
+     */
+    void filterMeetingsByDate(List<Meeting> mMeetings, List<Meeting> filteredMeetings, Calendar myCalendar);
+
+    /**
+     * Filter meetings by place
+     * @param  mMeetings
+     * @param filteredMeetings
+     * @param titlePlace
+     */
+    void filterMeetingsByPlace(List<Meeting> mMeetings, List<Meeting> filteredMeetings, String titlePlace);
+
 }

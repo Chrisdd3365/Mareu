@@ -1,5 +1,8 @@
 package com.christophedurand.mareu.UI;
 
+import android.graphics.Rect;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +73,12 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         String date = sdf.format(meeting.getDate());
 
         // SETUP UI
-        holder.mMeetingAvatar.setImageResource(meeting.getAvatar());
+        ShapeDrawable circle = new ShapeDrawable( new OvalShape() );
+        circle.setIntrinsicHeight(60);
+        circle.setIntrinsicWidth(60);
+        circle.setBounds(new Rect(30, 30, 30, 30) );
+        circle.getPaint().setColor(meeting.getAvatar() );
+        holder.mMeetingAvatar.setBackground(circle);
 
         holder.mMeetingTitle.setText(topic + " - " + date + " - " + place);
 

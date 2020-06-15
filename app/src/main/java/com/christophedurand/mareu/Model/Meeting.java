@@ -1,6 +1,6 @@
 package com.christophedurand.mareu.Model;
 
-import com.christophedurand.mareu.R;
+import android.graphics.Color;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -88,12 +88,13 @@ public class Meeting implements Serializable {
         // INIT EMPTY ARRAY LIST
         List<Integer> myAvatarList = new ArrayList<>();
         // ADD ALL AVATARS NEEDED
-        myAvatarList.add(R.drawable.circle_blue_64dp);
-        myAvatarList.add(R.drawable.circle_darkblue_64dp);
-        myAvatarList.add(R.drawable.circle_green_64dp);
-        myAvatarList.add(R.drawable.circle_orange_64dp);
-        myAvatarList.add(R.drawable.circle_pink_64dp);
-        myAvatarList.add(R.drawable.circle_red_64dp);
+        myAvatarList.add(Color.BLUE);
+        myAvatarList.add(Color.GREEN);
+        myAvatarList.add(Color.YELLOW);
+        myAvatarList.add(Color.MAGENTA);
+        myAvatarList.add(Color.BLACK);
+        myAvatarList.add(Color.RED);
+        myAvatarList.add(Color.CYAN);
         // RETURN AVATAR LIST FILLED WITH DRAWABLES
         return myAvatarList;
     }

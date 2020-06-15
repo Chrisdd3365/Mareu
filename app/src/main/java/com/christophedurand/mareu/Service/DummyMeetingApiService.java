@@ -2,7 +2,11 @@ package com.christophedurand.mareu.Service;
 
 import com.christophedurand.mareu.Model.Meeting;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 
 /**
@@ -38,6 +42,49 @@ public class DummyMeetingApiService implements MeetingApiService {
     @Override
     public void createMeeting(Meeting meeting) {
         meetings.add(meeting);
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param mMeetings
+     * @param filteredMeetings
+     * @param myCalendar
+     */
+    @Override
+    public void filterMeetingsByDate(List<Meeting> mMeetings, List<Meeting> filteredMeetings, Calendar myCalendar) {
+        for (int i = 0; i<mMeetings.size(); i++) {
+            Meeting meetingFiltered = mMeetings.get(i);
+            Date meetingFilteredDate = meetingFiltered.getDate();
+            Date myCalendarFilteredDate = myCalendar.getTime();
+
+            String myFormat = "dd/MM/yyyy";
+            SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
+
+            String meetingFilteredDateString = sdf.format(meetingFilteredDate);
+            String myCalendarFilteredDateString = sdf.format(myCalendarFilteredDate);
+
+            if (meetingFilteredDateString.contains(myCalendarFilteredDateString) ) {
+                filteredMeetings.add(meetingFiltered);
+            }
+        }
+    }
+
+    /**
+     * {@inheritDoc}
+     * @param mMeetings
+     * @param filteredMeetings
+     * @param titlePlace
+     */
+    @Override
+    public void filterMeetingsByPlace(List<Meeting> mMeetings, List<Meeting> filteredMeetings, String titlePlace) {
+        for (int i = 0; i<mMeetings.size(); i++) {
+            Meeting meetingFiltered = mMeetings.get(i);
+            String meetingPlace = meetingFiltered.getPlace();
+
+            if (meetingPlace.equals(titlePlace) ) {
+                filteredMeetings.add(meetingFiltered);
+            }
+        }
     }
 
 }
