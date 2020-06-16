@@ -28,6 +28,7 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <ScrollView
+            android:id="@+id/add_meeting_scroll_view"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
 

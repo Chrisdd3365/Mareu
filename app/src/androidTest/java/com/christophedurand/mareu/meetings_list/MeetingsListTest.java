@@ -79,6 +79,7 @@ public class MeetingsListTest {
         onView(withId(R.id.radiobutton_roomC) ).perform(ViewActions.click() );
         onView(withId(R.id.button_ok) ).perform(ViewActions.click() );
         // We type the participants of the meeting
+        onView(withId(R.id.add_meeting_scroll_view) ).perform(ViewActions.swipeUp() );
         onView(withId(R.id.participants) ).perform(ViewActions.click() );
         onView(withId(R.id.participants) ).perform(ViewActions.typeText("c.durand@gmail.com"),
                 ViewActions.closeSoftKeyboard() );
@@ -116,6 +117,7 @@ public class MeetingsListTest {
         onView(withId(R.id.radiobutton_roomC) ).perform(ViewActions.click() );
         onView(withId(R.id.button_ok) ).perform(ViewActions.click() );
         // We type the participants of the meeting
+        onView(withId(R.id.add_meeting_scroll_view) ).perform(ViewActions.swipeUp() );
         onView(withId(R.id.participants) ).perform(ViewActions.click() );
         onView(withId(R.id.participants) ).perform(ViewActions.typeText("c.durand@gmail.com"),
                 ViewActions.closeSoftKeyboard() );
@@ -158,6 +160,7 @@ public class MeetingsListTest {
         onView(withId(R.id.radiobutton_roomD) ).perform(ViewActions.click() );
         onView(withId(R.id.button_ok) ).perform(ViewActions.click() );
         // We type the participants of the meeting
+        onView(withId(R.id.add_meeting_scroll_view) ).perform(ViewActions.swipeUp() );
         onView(withId(R.id.participants) ).perform(ViewActions.click() );
         onView(withId(R.id.participants) ).perform(ViewActions.typeText("christophe.dd@gmail.com"),
                 ViewActions.closeSoftKeyboard() );

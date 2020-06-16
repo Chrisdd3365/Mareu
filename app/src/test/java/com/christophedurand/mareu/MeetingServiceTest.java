@@ -1,5 +1,7 @@
 package com.christophedurand.mareu;
 
+import android.graphics.Color;
+
 import com.christophedurand.mareu.DI.DI;
 import com.christophedurand.mareu.Model.Meeting;
 import com.christophedurand.mareu.Service.DummyMeetingGenerator;
@@ -73,7 +75,7 @@ public class MeetingServiceTest {
         // INIT MEETING
         Meeting meeting = new Meeting(setDate(29, 05, 2020, 12,01),
                 "Salle Bravo", "Réunion projet X",
-                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp);
+                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.RED);
 
         // ADD MEETING INTO MEETINGS
         meetings.add(meeting);
@@ -91,7 +93,7 @@ public class MeetingServiceTest {
         // INIT MEETING
         Meeting meeting = new Meeting(setDate(29,05,2020,13,01),
                 "Salle Bravo", "Réunion projet X",
-                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp);
+                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.BLUE);
 
         // ADD MEETING INTO MEETINGS
         meetings.add(meeting);
@@ -113,16 +115,16 @@ public class MeetingServiceTest {
         meetings = Arrays.asList(
                 new Meeting(setDate(03,06,2020,13,00),
                         "Salle Alpha", "Réunion projet X",
-                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_orange_64dp),
+                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.GREEN),
                 new Meeting(setDate(04,06,2020,14,00),
                         "Salle Bravo", "Réunion projet X",
-                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_green_64dp),
+                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.YELLOW),
                 new Meeting(setDate(03,06,2020,15,00),
                         "Salle Charlie", "Réunion projet X",
-                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp),
+                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.MAGENTA),
                 new Meeting(setDate(05,7,2020,12,00),
                         "Salle Delta", "Réunion projet X",
-                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_blue_64dp)
+                "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.BLACK)
         );
 
         // INIT FILTERED MEETINGS ARRAY LIST
@@ -162,16 +164,16 @@ public class MeetingServiceTest {
         meetings = Arrays.asList(
                 new Meeting(setDate(29,05,2020,13,01),
                         "Salle Delta", "Réunion projet X",
-                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_orange_64dp),
+                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.GREEN),
                 new Meeting(setDate(27,05,2020,14,01),
                         "Salle Beta", "Réunion projet X",
-                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_green_64dp),
+                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.YELLOW),
                 new Meeting(setDate(29,04,2020,15,01),
                         "Salle Alpha", "Réunion projet X",
-                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_red_64dp),
+                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.MAGENTA),
                 new Meeting(setDate(29,05,2020,12,01),
                         "Salle Alpha", "Réunion projet X",
-                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", R.drawable.circle_blue_64dp)
+                        "abc@lamzone.com, def@lamzone.com, ghi@lamzone.com", Color.BLACK)
         );
 
         // INIT FILTERED MEETINGS ARRAY LIST
