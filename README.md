@@ -4,7 +4,7 @@
 
 ## Description:
 
-Maréu is an app developed with Java and allow the user to create a list of meetings. 
+Maréu is an app developed with Java and allows the user to create a list of meetings. 
 
 This app has 2 functionalities: 
 
