@@ -12,6 +12,7 @@ import java.util.Locale;
 /**
  * Dummy mock for the Api
  */
+// TODO à supprimer (tout le package "service") une fois que le repo est temriné
 public class DummyMeetingApiService implements MeetingApiService {
     //-- PROPERTIES
     private List<Meeting> meetings = DummyMeetingGenerator.generateMeetings();

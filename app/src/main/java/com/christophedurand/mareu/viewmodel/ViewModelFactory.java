@@ -16,7 +16,6 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private static ViewModelFactory sInstance;
     private final Application application;
-    private final MeetingApiService meetingApiService;
     private final ListMeetingRepository listMeetingRepository;
 
 
@@ -29,10 +28,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private ViewModelFactory() {
         this.application = MainApplication.getApplication();
-        this.meetingApiService = new DummyMeetingApiService();
-        this.listMeetingRepository = new ListMeetingRepository(meetingApiService);
+        this.listMeetingRepository = new ListMeetingRepository();
     }
 
+    @SuppressWarnings("unchecked")
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {

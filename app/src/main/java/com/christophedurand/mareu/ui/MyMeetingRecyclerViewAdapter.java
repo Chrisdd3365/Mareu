@@ -17,6 +17,7 @@ import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -26,12 +27,11 @@ import butterknife.ButterKnife;
 
 public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder>  {
     //-- PROPERTIES
-    private final List<Meeting> mMeetings;
-    private ListMeetingsInterface mListener;
+    private final List<Meeting> mMeetings = new ArrayList<>();
+    private final ListMeetingsInterface mListener;
 
     //-- INIT
-    public MyMeetingRecyclerViewAdapter(List<Meeting> items, ListMeetingsInterface listener) {
-        mMeetings = items;
+    public MyMeetingRecyclerViewAdapter(ListMeetingsInterface listener) {
         mListener = listener;
     }
 
@@ -64,10 +64,12 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        // TODO comme on a dit, pas de Meeting "technique" ici, plutôt un MeetingViewState
         final Meeting meeting = mMeetings.get(position);
         String topic = meeting.getTopic();
         String place = meeting.getPlace();
 
+        // TODO à mettre dans le VM!
         String myFormat = "dd/MM/yyyy kk:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
         String date = sdf.format(meeting.getDate());
@@ -80,6 +82,7 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         circle.getPaint().setColor(meeting.getAvatar() );
         holder.mMeetingAvatar.setBackground(circle);
 
+        // TODO à mettre dans le VM!
         holder.mMeetingTitle.setText(topic + " - " + date + " - " + place);
 
         holder.mMeetingParticipants.setText(meeting.getParticipants());
@@ -96,4 +99,11 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         return mMeetings.size();
     }
 
+    public void setNewData(@NonNull List<Meeting> meetings) {
+        mMeetings.clear();
+        mMeetings.addAll(meetings);
+
+        notifyDataSetChanged();
+    }
+    
 }

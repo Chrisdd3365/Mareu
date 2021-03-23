@@ -21,10 +21,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.christophedurand.mareu.DI.DI;
 import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
-import com.christophedurand.mareu.service.MeetingApiService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -65,7 +63,6 @@ public class AddMeetingActivity extends AppCompatActivity {
     @BindView(R.id.create)
     MaterialButton createMeetingButton;
     // DATA
-    private MeetingApiService mApiService;
     private Integer mMeetingAvatar;
 
     // CALENDAR
@@ -93,8 +90,6 @@ public class AddMeetingActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_meeting);
 
         ButterKnife.bind(this);
-
-        mApiService = DI.getMeetingApiService();
 
         init();
 
@@ -181,7 +176,7 @@ public class AddMeetingActivity extends AppCompatActivity {
                 mMeetingAvatar
         );
 
-        mApiService.createMeeting(meeting);
+        // TODO : dispatcher l'info au VM qui va ajouter grâce au repo le meeting
 
         finish();
     }
