@@ -1,4 +1,4 @@
-package com.christophedurand.mareu.UI;
+package com.christophedurand.mareu.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -8,14 +8,15 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.christophedurand.mareu.DI.DI;
-import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
-import com.christophedurand.mareu.Service.MeetingApiService;
+import com.christophedurand.mareu.viewmodel.ListMeetingViewModel;
+import com.christophedurand.mareu.viewmodel.ViewModelFactory;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -29,8 +30,9 @@ import butterknife.OnClick;
 
 public class ListMeetingActivity extends AppCompatActivity implements ListMeetingsInterface {
     //-- PROPERTIES
-    private MeetingApiService mApiService;
+    //private MeetingApiService mApiService;
     private List<Meeting> mMeetings;
+    private ListMeetingViewModel mListMeetingViewModel;
     // UI
     @BindView(R.id.recycler_view_meetings)
     RecyclerView mRecyclerView;
@@ -43,7 +45,7 @@ public class ListMeetingActivity extends AppCompatActivity implements ListMeetin
         myCalendar.set(Calendar.MONTH, monthOfYear);
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-        mMeetings = mApiService.getMeetings();
+        //mMeetings = mApiService.getMeetings();
         initList();
 
         List<Meeting> filteredMeetings = new ArrayList<>();
@@ -58,10 +60,15 @@ public class ListMeetingActivity extends AppCompatActivity implements ListMeetin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // INIT INSTANCE OF API SERVICE
-        mApiService = DI.getMeetingApiService();
-        // INIT LIST MEETINGS
-        mMeetings = mApiService.getMeetings();
+//        // INIT INSTANCE OF API SERVICE
+//        mApiService = DI.getMeetingApiService();
+//        // INIT LIST MEETINGS
+//        mMeetings = mApiService.getMeetings();
+        ViewModelFactory mViewModelFactory = ViewModelFactory.getInstance();
+        mListMeetingViewModel = new ViewModelProvider(this, mViewModelFactory).get(ListMeetingViewModel.class);
+        mListMeetingViewModel.getMeetingsListLiveData().observe(this, meetingsList -> {
+            mMeetings = meetingsList;
+        });
         // SET CONTENT VIEW WITH LAYOUT
         setContentView(R.layout.activity_main);
         // BIND BUTTER KNIFE DEPENDENCY

@@ -1,4 +1,4 @@
-package com.christophedurand.mareu.UI;
+package com.christophedurand.mareu.ui;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -22,9 +22,9 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
 import com.christophedurand.mareu.DI.DI;
-import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
-import com.christophedurand.mareu.Service.MeetingApiService;
+import com.christophedurand.mareu.service.MeetingApiService;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -38,8 +38,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-import static com.christophedurand.mareu.Model.Meeting.getRandomNumber;
-import static com.christophedurand.mareu.Model.Meeting.setupAvatarsArrayList;
+import static com.christophedurand.mareu.model.Meeting.getRandomNumber;
+import static com.christophedurand.mareu.model.Meeting.setupAvatarsArrayList;
 
 public class AddMeetingActivity extends AppCompatActivity {
     //-- PROPERTIES

@@ -1,4 +1,4 @@
-package com.christophedurand.mareu.Model;
+package com.christophedurand.mareu.model;
 
 import android.graphics.Color;
 

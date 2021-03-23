@@ -1,4 +1,4 @@
-package com.christophedurand.mareu.UI;
+package com.christophedurand.mareu.ui;
 
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
 
 import java.text.SimpleDateFormat;

@@ -10,7 +10,7 @@ import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.rule.ActivityTestRule;
 import androidx.test.runner.AndroidJUnit4;
 
-import com.christophedurand.mareu.UI.ListMeetingActivity;
+import com.christophedurand.mareu.ui.ListMeetingActivity;
 import com.christophedurand.mareu.R;
 import com.christophedurand.mareu.utils.DeleteViewAction;
 

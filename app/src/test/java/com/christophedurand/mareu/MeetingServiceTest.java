@@ -3,9 +3,9 @@ package com.christophedurand.mareu;
 import android.graphics.Color;
 
 import com.christophedurand.mareu.DI.DI;
-import com.christophedurand.mareu.Model.Meeting;
-import com.christophedurand.mareu.Service.DummyMeetingGenerator;
-import com.christophedurand.mareu.Service.MeetingApiService;
+import com.christophedurand.mareu.model.Meeting;
+import com.christophedurand.mareu.service.DummyMeetingGenerator;
+import com.christophedurand.mareu.service.MeetingApiService;
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;

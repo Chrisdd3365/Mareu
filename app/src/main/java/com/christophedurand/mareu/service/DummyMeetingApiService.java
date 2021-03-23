@@ -1,6 +1,6 @@
-package com.christophedurand.mareu.Service;
+package com.christophedurand.mareu.service;
 
-import com.christophedurand.mareu.Model.Meeting;
+import com.christophedurand.mareu.model.Meeting;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
