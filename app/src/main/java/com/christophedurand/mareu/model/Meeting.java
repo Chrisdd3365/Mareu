@@ -3,8 +3,8 @@ package com.christophedurand.mareu.model;
 import android.graphics.Color;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -12,23 +12,26 @@ import java.util.Random;
  * Model object representing a Meeting
  */
 public class Meeting implements Serializable {
-    //-- PROPERTIES
-    /** Date of the reunion */
-    private Date date;
 
-    /** Place where the reunion will take place */
+    /** id of the meeting */
+    private String id;
+
+    /** Date of the meeting */
+    private LocalDate date;
+
+    /** Place where the meeting will take place */
     private String place;
 
-    /** Topic of the reunion */
+    /** Topic of the meeting */
     private String topic;
 
-    /** People who will attend to the reunion */
+    /** People who will attend to the meeting */
     private String participants;
 
-    /** Avatar of the reunion */
+    /** Avatar of the meeting */
     private Integer avatar;
 
-    //-- INIT
+
     /**
      * Constructor
      * @param date
@@ -37,8 +40,9 @@ public class Meeting implements Serializable {
      * @param participants
      * @param avatar
      */
-    public Meeting(Date date, String place, String topic,
+    public Meeting(String id, LocalDate date, String place, String topic,
                    String participants, Integer avatar) {
+        this.id = id;
         this.date = date;
         this.place = place;
         this.topic = topic;
@@ -46,10 +50,12 @@ public class Meeting implements Serializable {
         this.avatar = avatar;
     }
 
-    //-- GETTER & SETTER
-    public Date getDate() { return date; }
 
-    public void setDate(Date date) { this.date = date; }
+    public String getId() { return id; }
+
+    public LocalDate getDate() { return date; }
+
+    public void setDate(LocalDate date) { this.date = date; }
 
     public String getPlace() {
         return place;
@@ -83,11 +89,9 @@ public class Meeting implements Serializable {
         this.avatar = avatar;
     }
 
-    //-- METHODS
+
     public static List<Integer> setupAvatarsArrayList() {
-        // INIT EMPTY ARRAY LIST
         List<Integer> myAvatarList = new ArrayList<>();
-        // ADD ALL AVATARS NEEDED
         myAvatarList.add(Color.BLUE);
         myAvatarList.add(Color.GREEN);
         myAvatarList.add(Color.YELLOW);
@@ -95,7 +99,7 @@ public class Meeting implements Serializable {
         myAvatarList.add(Color.BLACK);
         myAvatarList.add(Color.RED);
         myAvatarList.add(Color.CYAN);
-        // RETURN AVATAR LIST FILLED WITH DRAWABLES
+
         return myAvatarList;
     }
 

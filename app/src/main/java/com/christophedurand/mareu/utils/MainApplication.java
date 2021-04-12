@@ -1,4 +1,4 @@
-package com.christophedurand.mareu;
+package com.christophedurand.mareu.utils;
 
 import android.app.Application;
 

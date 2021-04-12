@@ -1,4 +1,4 @@
-package com.christophedurand.mareu.ui;
+package com.christophedurand.mareu.ui.add;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
@@ -20,9 +20,11 @@ import android.widget.RadioGroup;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
+import com.christophedurand.mareu.viewmodel.ViewModelFactory;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -31,6 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.UUID;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,9 +42,9 @@ import butterknife.OnClick;
 import static com.christophedurand.mareu.model.Meeting.getRandomNumber;
 import static com.christophedurand.mareu.model.Meeting.setupAvatarsArrayList;
 
+
 public class AddMeetingActivity extends AppCompatActivity {
-    //-- PROPERTIES
-    // UI
+
     @BindView(R.id.avatar)
     ImageView avatarImageView;
     @BindView(R.id.topicLyt)
@@ -62,38 +65,39 @@ public class AddMeetingActivity extends AppCompatActivity {
     TextInputLayout participantsInput;
     @BindView(R.id.create)
     MaterialButton createMeetingButton;
-    // DATA
+
     private Integer mMeetingAvatar;
 
-    // CALENDAR
-    final Calendar myCalendar = Calendar.getInstance();
-    // DATE
-    DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+    private final Calendar myCalendar = Calendar.getInstance();
+
+    private final DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
         myCalendar.set(Calendar.YEAR, year);
         myCalendar.set(Calendar.MONTH, monthOfYear);
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
         updateDateLabel();
     };
-    // TIME
-    TimePickerDialog.OnTimeSetListener time = (view, hour, minute) -> {
+
+    private final TimePickerDialog.OnTimeSetListener time = (view, hour, minute) -> {
         myCalendar.set(Calendar.HOUR_OF_DAY, hour);
         myCalendar.set(Calendar.MINUTE, minute);
         DateFormat.is24HourFormat(AddMeetingActivity.this);
         updateTimeLabel();
     };
 
-    //-- VIEW LIFE CYCLE
+    private AddMeetingViewModel mAddMeetingViewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_add_meeting);
-
         ButterKnife.bind(this);
-
         init();
-
         generateMeetingAvatar();
+
+        ViewModelFactory viewModelFactory = ViewModelFactory.getInstance();
+        mAddMeetingViewModel = new ViewModelProvider(this, viewModelFactory).get(AddMeetingViewModel.class);
     }
 
     @Override
@@ -116,10 +120,9 @@ public class AddMeetingActivity extends AppCompatActivity {
                 createMeetingButton.setEnabled(s.length() > 0);
             }
         });
-
     }
 
-    //-- ON CLICK
+
     @OnClick(R.id.date)
     void dateEditTextIsTapped() {
         DatePickerDialog datePickerDialog = new DatePickerDialog(
@@ -169,19 +172,18 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.create)
     void createMeeting() {
-        Meeting meeting = new Meeting(myCalendar.getTime(),
+        Meeting meeting = new Meeting(UUID.randomUUID().toString(), myCalendar.getTime(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(participantsInput.getEditText()).getText().toString(),
                 mMeetingAvatar
         );
-
-        // TODO : dispatcher l'info au VM qui va ajouter grâce au repo le meeting
+        mAddMeetingViewModel.onCreateMeetingButtonClicked(meeting);
 
         finish();
     }
 
-    //-- METHODS
+
     /**
      * Used to navigate to this activity
      * @param activity

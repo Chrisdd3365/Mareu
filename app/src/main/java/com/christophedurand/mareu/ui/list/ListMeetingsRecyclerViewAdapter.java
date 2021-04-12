@@ -1,5 +1,6 @@
-package com.christophedurand.mareu.ui;
+package com.christophedurand.mareu.ui.list;
 
+import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
@@ -13,46 +14,48 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.R;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeetingRecyclerViewAdapter.ViewHolder>  {
-    //-- PROPERTIES
-    private final List<Meeting> mMeetings = new ArrayList<>();
+public class ListMeetingsRecyclerViewAdapter extends RecyclerView.Adapter<ListMeetingsRecyclerViewAdapter.ViewHolder>  {
+
+    private final List<MeetingViewStateItem> mMeetingViewStateItemsList = new ArrayList<>();
     private final ListMeetingsInterface mListener;
 
-    //-- INIT
-    public MyMeetingRecyclerViewAdapter(ListMeetingsInterface listener) {
+
+    public ListMeetingsRecyclerViewAdapter(ListMeetingsInterface listener) {
         mListener = listener;
     }
 
-    //-- VIEW HOLDER
+
     public class ViewHolder extends RecyclerView.ViewHolder {
-        // UI
+
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.item_list_avatar)
         public ImageView mMeetingAvatar;
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.item_list_title)
         public TextView mMeetingTitle;
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.item_list_participants)
         public TextView mMeetingParticipants;
+        @SuppressLint("NonConstantResourceId")
         @BindView(R.id.item_list_delete_button)
         public ImageButton mDeleteButton;
+
 
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
         }
-
     }
+
 
     @NonNull
     @Override
@@ -62,46 +65,35 @@ public class MyMeetingRecyclerViewAdapter extends RecyclerView.Adapter<MyMeeting
         return new ViewHolder(view);
     }
 
+
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        // TODO comme on a dit, pas de Meeting "technique" ici, plutôt un MeetingViewState
-        final Meeting meeting = mMeetings.get(position);
-        String topic = meeting.getTopic();
-        String place = meeting.getPlace();
 
-        // TODO à mettre dans le VM!
-        String myFormat = "dd/MM/yyyy kk:mm";
-        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
-        String date = sdf.format(meeting.getDate());
+        final MeetingViewStateItem meetingViewStateItem = mMeetingViewStateItemsList.get(position);
 
-        // SETUP UI
         ShapeDrawable circle = new ShapeDrawable( new OvalShape() );
         circle.setIntrinsicHeight(60);
         circle.setIntrinsicWidth(60);
         circle.setBounds(new Rect(30, 30, 30, 30) );
-        circle.getPaint().setColor(meeting.getAvatar() );
+        circle.getPaint().setColor(meetingViewStateItem.getAvatar());
         holder.mMeetingAvatar.setBackground(circle);
 
-        // TODO à mettre dans le VM!
-        holder.mMeetingTitle.setText(topic + " - " + date + " - " + place);
+        holder.mMeetingTitle.setText(meetingViewStateItem.getTitle());
 
-        holder.mMeetingParticipants.setText(meeting.getParticipants());
+        holder.mMeetingParticipants.setText(meetingViewStateItem.getParticipants());
 
-        // ON CLICK
-        holder.mDeleteButton.setOnClickListener((View v) -> {
-            mListener.onDeleteMeeting(meeting);
-        });
+        holder.mDeleteButton.setOnClickListener((View v) -> mListener.onDeleteMeeting(meetingViewStateItem.getId()));
     }
 
-    //--  METHODS
+
     @Override
     public int getItemCount() {
-        return mMeetings.size();
+        return mMeetingViewStateItemsList.size();
     }
 
-    public void setNewData(@NonNull List<Meeting> meetings) {
-        mMeetings.clear();
-        mMeetings.addAll(meetings);
+    public void setNewData(@NonNull List<MeetingViewStateItem> meetings) {
+        mMeetingViewStateItemsList.clear();
+        mMeetingViewStateItemsList.addAll(meetings);
 
         notifyDataSetChanged();
     }

@@ -1,5 +1,6 @@
-package com.christophedurand.mareu.ui;
+package com.christophedurand.mareu.ui.list;
 
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.os.Bundle;
@@ -14,14 +15,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.christophedurand.mareu.R;
-import com.christophedurand.mareu.model.Meeting;
-import com.christophedurand.mareu.viewmodel.ListMeetingViewModel;
+import com.christophedurand.mareu.ui.add.AddMeetingActivity;
 import com.christophedurand.mareu.viewmodel.ViewModelFactory;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
 import java.util.Calendar;
-import java.util.Collections;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -29,64 +27,53 @@ import butterknife.OnClick;
 
 
 public class ListMeetingActivity extends AppCompatActivity implements ListMeetingsInterface {
-    //-- PROPERTIES
-    //private MeetingApiService mApiService;
-    //private List<Meeting> mMeetings;
-    // TODO : on peut le laisser en variable locale dans onCreate();
-    private ListMeetingViewModel mListMeetingViewModel;
 
-    // UI
+    @SuppressLint("NonConstantResourceId")
     @BindView(R.id.recycler_view_meetings)
     RecyclerView mRecyclerView;
-    // DATE
-    private DatePickerDialog.OnDateSetListener dateSelectedListener ;
 
-    //-- VIEW LIFE CYCLE
+    private DatePickerDialog.OnDateSetListener dateSelectedListener;
+    private ListMeetingViewModel mListMeetingViewModel;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        // INIT INSTANCE OF API SERVICE
-//        mApiService = DI.getMeetingApiService();
-//        // INIT LIST MEETINGS
-//        mMeetings = mApiService.getMeetings();
 
-        // SET CONTENT VIEW WITH LAYOUT
         setContentView(R.layout.activity_main);
-        // BIND BUTTER KNIFE DEPENDENCY
         ButterKnife.bind(this);
-        // SET RECYCLER VIEW LAYOUT MANAGER
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        // SET DIVIDER ITEM DECORATION
         DividerItemDecoration myDivider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(myDivider);
-        // SET ADAPTER
-        MyMeetingRecyclerViewAdapter myMeetingRecyclerViewAdapter = new MyMeetingRecyclerViewAdapter(this);
-        mRecyclerView.setAdapter(myMeetingRecyclerViewAdapter);
 
         ViewModelFactory viewModelFactory = ViewModelFactory.getInstance();
         mListMeetingViewModel = new ViewModelProvider(this, viewModelFactory).get(ListMeetingViewModel.class);
-        mListMeetingViewModel.getMeetingsListLiveData().observe(this, meetingsList ->
-            myMeetingRecyclerViewAdapter.setNewData(meetingsList)
+
+        ListMeetingsRecyclerViewAdapter listMeetingsRecyclerViewAdapter =
+                new ListMeetingsRecyclerViewAdapter(this);
+        mRecyclerView.setAdapter(listMeetingsRecyclerViewAdapter);
+
+
+        mListMeetingViewModel.getMeetingsListLiveData().observe(this, meetingViewState ->
+            listMeetingsRecyclerViewAdapter.setNewData(meetingViewState.getMeetingViewStateItemsList())
         );
 
-        dateSelectedListener = (view, year, monthOfYear, dayOfMonth) -> {
-            Calendar.getInstance().set(Calendar.YEAR, year);
-            Calendar.getInstance().set(Calendar.MONTH, monthOfYear);
-            Calendar.getInstance().set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
-            // TODO : dispatcher l'info au VM qui va trier pour nous
-            // List<Meeting> filteredMeetings = new ArrayList<>();
-            // mApiService.filterMeetingsByDate(mMeetings, filteredMeetings, Calendar.getInstance());
-            // Collections.sort(mMeetings, (lhs, rhs) -> lhs.getDate().compareTo(rhs.getDate()));
+        dateSelectedListener = (view, year, monthOfYear, dayOfMonth) -> {
+            LocalDate localDate = LocalDate.of(year, monthOfYear, dayOfMonth);
+            mListMeetingViewModel.onFilterMeetingsByDateButtonClicked(localDate);
         };
     }
 
-    //-- ON CLICK
+
+    @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.add_meeting)
     void addMeeting() {
         AddMeetingActivity.navigate(this);
     }
 
+    @SuppressLint("NonConstantResourceId")
     @OnClick(R.id.filter_image_button)
     void showFilterRadioButtonDialog() {
         Dialog dialog = new Dialog(this);
@@ -109,19 +96,20 @@ public class ListMeetingActivity extends AppCompatActivity implements ListMeetin
         buttonOk.setOnClickListener(v -> dialog.dismiss());
     }
 
-    //-- METHODS
+
     /**
      * Action of delete meeting button
      */
     @Override
-    public void onDeleteMeeting(Meeting meeting) {
-        // TODO : dispatcher l'info au VM qui va parler au repo
+    public void onDeleteMeeting(String meetingId) {
+        mListMeetingViewModel.onDeleteMeetingButtonClicked(meetingId);
     }
 
     /**
      * Update data in the list of meetings and recycler view adapter
      */
-    private void filterListButtonIsTapped(RadioButton dateRadioButton, RadioButton placeRadioButton,
+    private void filterListButtonIsTapped(RadioButton dateRadioButton,
+                                          RadioButton placeRadioButton,
                                           RadioButton withoutFilterRadioButton) {
         if (dateRadioButton.isChecked() ) {
             placeRadioButton.setChecked(false);
@@ -162,15 +150,7 @@ public class ListMeetingActivity extends AppCompatActivity implements ListMeetin
 
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
             RadioButton radioButtonRoom = dialog.findViewById(checkedId);
-
-//            int tag = Integer.parseInt((String) (radioButtonRoom.getTag() ) );
-//
-//            String titlePlace = getResources().getStringArray(R.array.places_titles)[tag];
-//
-//            List<Meeting> filteredMeetings = new ArrayList<>();
-//            mApiService.filterMeetingsByPlace(mMeetings, filteredMeetings, titlePlace);
-//            // TODO : dispatcher l'info au VM qui va trier pour nous
-//            Collections.sort(mMeetings, (lhs, rhs) -> lhs.getDate().compareTo(rhs.getDate()));
+            mListMeetingViewModel.onFilterMeetingsByPlaceButtonClicked(radioButtonRoom.getText().toString());
         });
 
         buttonOk.setOnClickListener(v -> dialog.dismiss());

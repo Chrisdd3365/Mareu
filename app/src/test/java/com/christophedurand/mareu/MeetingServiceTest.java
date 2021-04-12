@@ -2,10 +2,7 @@ package com.christophedurand.mareu;
 
 import android.graphics.Color;
 
-import com.christophedurand.mareu.DI.DI;
 import com.christophedurand.mareu.model.Meeting;
-import com.christophedurand.mareu.service.DummyMeetingGenerator;
-import com.christophedurand.mareu.service.MeetingApiService;
 
 import org.hamcrest.collection.IsIterableContainingInAnyOrder;
 import org.junit.Before;
@@ -31,12 +28,12 @@ import static org.junit.Assert.*;
  */
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
-    //-- PROPERTIES
+
     private MeetingApiService service;
     private List<Meeting> meetings = new ArrayList<>();
     private Calendar myCalendar;
 
-    //-- SETUP
+
     @Before
     public void setup() {
         service = DI.getNewInstanceApiService();
@@ -44,21 +41,19 @@ public class MeetingServiceTest {
         myCalendar = Calendar.getInstance();
     }
 
-    private Date setDate(int day, int month, int year, int hour, int minute) {
-        // SET A DATE WITH CALENDAR INSTANCE
+    private String setDate(int day, int month, int year, int hour, int minute) {
         myCalendar.set(Calendar.DAY_OF_MONTH, day);
         myCalendar.set(Calendar.MONTH, month);
         myCalendar.set(Calendar.YEAR, year);
         myCalendar.set(Calendar.HOUR_OF_DAY, hour);
         myCalendar.set(Calendar.MINUTE, minute);
 
-        // INIT DATE
-        Date date = myCalendar.getTime();
+        String date = myCalendar.getTime();
 
         return date;
     }
 
-    //-- UNIT TESTS METHODS
+
     // UNIT TESTING INIT LIST OF MEETINGS
     @Test
     public void getMeetingsWithSuccess() {
@@ -133,7 +128,7 @@ public class MeetingServiceTest {
         for (int i = 0; i<meetings.size(); i++) {
             Meeting meetingFiltered = meetings.get(i);
             Date meetingFilteredDate = meetingFiltered.getDate();
-            Date myCalendarFilteredDate = setDate(03, 06, 2020, 00, 00);
+            String myCalendarFilteredDate = setDate(03, 06, 2020, 00, 00);
 
             String myFormat = "dd/MM/yyyy";
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);

@@ -6,10 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.christophedurand.mareu.MainApplication;
+import com.christophedurand.mareu.ui.add.AddMeetingViewModel;
+import com.christophedurand.mareu.ui.list.ListMeetingViewModel;
+import com.christophedurand.mareu.utils.MainApplication;
 import com.christophedurand.mareu.repository.ListMeetingRepository;
-import com.christophedurand.mareu.service.DummyMeetingApiService;
-import com.christophedurand.mareu.service.MeetingApiService;
 
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
@@ -36,7 +36,10 @@ public class ViewModelFactory implements ViewModelProvider.Factory {
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(ListMeetingViewModel.class)) {
-            return (T) new ListMeetingViewModel(application, listMeetingRepository);
+            return (T) new ListMeetingViewModel(listMeetingRepository);
+        } else if (modelClass.isAssignableFrom(AddMeetingViewModel.class)) {
+            return (T) new AddMeetingViewModel(listMeetingRepository);
+
         }
         throw new IllegalArgumentException("Unknown ViewModel class $modelClass");
     }
