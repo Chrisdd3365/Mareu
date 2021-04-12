@@ -88,11 +88,11 @@ public class ListMeetingViewModel extends ViewModel {
     }
 
     public String getMeetingTitle(Meeting meeting) {
-        String myFormat = "dd/MM/yyyy kk:mm";
+        /*String myFormat = "dd/MM/yyyy kk:mm";
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.FRANCE);
-        String date = sdf.format(meeting.getDate());
+        String date = sdf.format(meeting.getDate());*/
 
-        return meeting.getTopic() + " - " + date + " - " + meeting.getPlace();
+        return meeting.getTopic() + " - " + "2021/04/12" + " - " + meeting.getPlace();
     }
 
     public void onDeleteMeetingButtonClicked(String meetingId) {

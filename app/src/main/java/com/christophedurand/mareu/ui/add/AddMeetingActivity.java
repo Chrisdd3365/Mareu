@@ -30,6 +30,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Calendar;
 import java.util.Locale;
 import java.util.Objects;
@@ -172,7 +175,7 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.create)
     void createMeeting() {
-        Meeting meeting = new Meeting(UUID.randomUUID().toString(), myCalendar.getTime(),
+        Meeting meeting = new Meeting(UUID.randomUUID().toString(), LocalDate.now(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(participantsInput.getEditText()).getText().toString(),

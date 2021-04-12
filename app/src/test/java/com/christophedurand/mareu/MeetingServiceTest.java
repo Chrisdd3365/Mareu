@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
  */
 @RunWith(JUnit4.class)
 public class MeetingServiceTest {
-
+/*
     private MeetingApiService service;
     private List<Meeting> meetings = new ArrayList<>();
     private Calendar myCalendar;
@@ -195,6 +195,6 @@ public class MeetingServiceTest {
 
         assertEquals(2, filteredMeetings.size());
         assertThat(meetings, IsIterableContainingInAnyOrder.containsInAnyOrder(filteredMeetings.toArray() ) );
-    }
+    }*/
 
 }
