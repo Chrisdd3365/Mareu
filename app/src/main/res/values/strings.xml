@@ -24,4 +24,6 @@
     <string name="radiobutton_string_roomF">"Salle Foxtrot"</string>
     <string name="radiobutton_string_roomG">"Salle Golf"</string>
     <string name="button_string_ok">"OK"</string>
+
+    <string name="meeting_title_preset">%s - %s - %s</string>
 </resources>

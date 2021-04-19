@@ -55,7 +55,7 @@ public class ListMeetingActivity extends AppCompatActivity implements ListMeetin
         mRecyclerView.setAdapter(listMeetingsRecyclerViewAdapter);
 
 
-        mListMeetingViewModel.getMeetingsListLiveData().observe(this, meetingViewState ->
+        mListMeetingViewModel.getMeetingViewStateLiveData().observe(this, meetingViewState ->
             listMeetingsRecyclerViewAdapter.setNewData(meetingViewState.getMeetingViewStateItemsList())
         );
 
