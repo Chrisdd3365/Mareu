@@ -175,7 +175,9 @@ public class AddMeetingActivity extends AppCompatActivity {
 
     @OnClick(R.id.create)
     void createMeeting() {
-        Meeting meeting = new Meeting(UUID.randomUUID().toString(), LocalDate.now(),
+        Meeting meeting = new Meeting(
+                UUID.randomUUID().toString(),
+                LocalDate.now(),
                 Objects.requireNonNull(placeInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(topicInput.getEditText()).getText().toString(),
                 Objects.requireNonNull(participantsInput.getEditText()).getText().toString(),

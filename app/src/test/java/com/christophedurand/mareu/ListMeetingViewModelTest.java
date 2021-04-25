@@ -8,10 +8,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.christophedurand.mareu.model.Meeting;
 import com.christophedurand.mareu.repository.ListMeetingRepository;
+import com.christophedurand.mareu.ui.add.AddMeetingViewModel;
 import com.christophedurand.mareu.ui.list.ListMeetingViewModel;
 import com.christophedurand.mareu.ui.list.MeetingViewState;
 import com.christophedurand.mareu.ui.list.MeetingViewStateItem;
-import com.christophedurand.mareu.utils.MainApplication;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -44,8 +44,8 @@ public class ListMeetingViewModelTest {
 
     private final MutableLiveData<List<Meeting>> meetingsLiveData = new MutableLiveData<>();
 
-    private ListMeetingViewModel viewModel;
-
+    private ListMeetingViewModel listMeetingViewModel;
+    private AddMeetingViewModel addMeetingViewModel;
 
     @Before
     public void setUp() {
@@ -54,7 +54,9 @@ public class ListMeetingViewModelTest {
                 .when(application)
                 .getString(R.string.meeting_title_preset, any(), any(), any());
 
-        viewModel = new ListMeetingViewModel(application, listMeetingRepository);
+        listMeetingViewModel = new ListMeetingViewModel(application, listMeetingRepository);
+
+        addMeetingViewModel = new AddMeetingViewModel(listMeetingRepository);
     }
 
     @Test
@@ -75,18 +77,18 @@ public class ListMeetingViewModelTest {
         meetingsLiveData.setValue(meetings);
 
         // When
-        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(viewModel.getMeetingViewStateLiveData());
+        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(listMeetingViewModel.getMeetingViewStateLiveData());
 
         // Then
         assertEquals(getDefaultMeetingViewState(), meetingViewState);
     }
 
-    //TODO: côté repo
     @Test
     public void when_addButtonClicked_should_display_new_meeting() throws InterruptedException {
         // Given
         List<Meeting> meetings = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        int i;
+        for (i = 0; i < 3; i++) {
             meetings.add(new Meeting(
                             "" + i,
                             LocalDate.of(2021, 4, 12),
@@ -97,30 +99,44 @@ public class ListMeetingViewModelTest {
                     )
             );
         }
-
-        meetings.add(new Meeting("" + 3,
-                                LocalDate.of(2021,4,12),
-                                PLACE + 3,
-                                TOPIC + 3,
-                                PARTICIPANTS + 3,
-                                R.drawable.date_white_24dp
-                )
-        );
         meetingsLiveData.setValue(meetings);
 
         // When
-        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(viewModel.getMeetingViewStateLiveData());
+        Meeting meeting = new Meeting(
+                "" + i,
+                LocalDate.of(2021, 4, 12),
+                PLACE + i,
+                TOPIC + i,
+                PARTICIPANTS + i,
+                R.drawable.date_white_24dp
+        );
+        addMeetingViewModel.onCreateMeetingButtonClicked(meeting);
+        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(listMeetingViewModel.getMeetingViewStateLiveData());
 
         // Then
-        assertEquals(getAddedMeetingViewState(), meetingViewState);
+        List<MeetingViewStateItem> expected = new ArrayList<>();
+        for (i = 0; i < 4; i++) {
+            expected.add(
+                    new MeetingViewStateItem(
+                            "" + i,
+                            TOPIC + i + " - 2021/04/12 - " + PLACE + i,
+                            R.drawable.date_white_24dp,
+                            PARTICIPANTS + i,
+                            PLACE + i,
+                            LocalDate.of(2021, 4, 12)
+                    )
+            );
+        }
+
+        assertEquals(new MeetingViewState(expected), meetingViewState);
     }
 
-    //TODO: côté repo
     @Test
     public void when_deleteButtonClicked_should_remove_selected_meeting() throws InterruptedException {
         // Given
         List<Meeting> meetings = new ArrayList<>();
-        for (int i = 0; i < 3; i++) {
+        int i;
+        for (i = 0; i < 3; i++) {
             meetings.add(new Meeting(
                             "" + i,
                             LocalDate.of(2021, 4, 12),
@@ -131,22 +147,27 @@ public class ListMeetingViewModelTest {
                     )
             );
         }
-
-        meetings.remove(new Meeting("" + 3,
-                        LocalDate.of(2021,4,12),
-                        PLACE + 3,
-                        TOPIC + 3,
-                        PARTICIPANTS + 3,
-                        R.drawable.date_white_24dp
-                )
-        );
         meetingsLiveData.setValue(meetings);
 
         // When
-        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(viewModel.getMeetingViewStateLiveData());
+        listMeetingViewModel.onDeleteMeetingButtonClicked("" + 2);
+        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(listMeetingViewModel.getMeetingViewStateLiveData());
 
         // Then
-        assertEquals(getDeletedMeetingViewState(), meetingViewState);
+        List<MeetingViewStateItem> expected = new ArrayList<>();
+        for (i = 0; i < 2; i++) {
+            expected.add(
+                    new MeetingViewStateItem(
+                            "" + i,
+                            TOPIC + i + " - 2021/04/12 - " + PLACE + i,
+                            R.drawable.date_white_24dp,
+                            PARTICIPANTS + i,
+                            PLACE + i,
+                            LocalDate.of(2021, 4, 12)
+                    )
+            );
+        }
+        assertEquals(new MeetingViewState(expected), meetingViewState);
     }
 
     @Test
@@ -155,24 +176,48 @@ public class ListMeetingViewModelTest {
         List<Meeting> meetings = new ArrayList<>();
         String meetingPlace = PLACE + 2;
 
-        for (int i = 0; i < 4; i++) {
+        int i;
+        for (i = 0; i < 3; i++) {
             meetings.add(new Meeting(
                             "" + i,
                             LocalDate.of(2021, 4, 12),
-                            meetingPlace,
+                            PLACE + i,
                             TOPIC + i,
                             PARTICIPANTS + i,
                             R.drawable.date_white_24dp
                     )
             );
+
         }
+
+        meetings.add(new Meeting(
+                        "" + i,
+                        LocalDate.of(2021, 4, 12),
+                        meetingPlace,
+                        TOPIC + i,
+                        PARTICIPANTS + i,
+                        R.drawable.date_white_24dp
+                )
+        );
         meetingsLiveData.setValue(meetings);
 
         // When
-        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(viewModel.getMeetingViewStateLiveData());
+        listMeetingViewModel.onFilterMeetingsByPlaceButtonClicked(meetingPlace);
+        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(listMeetingViewModel.getMeetingViewStateLiveData());
 
         // Then
-        assertEquals(getFilteredMeetingByPlaceViewState(meetingPlace), meetingViewState);
+        List<MeetingViewStateItem> expected = new ArrayList<>();
+        expected.add(
+                new MeetingViewStateItem(
+                        "3",
+                        TOPIC + 3 + " - 2021/04/19 - " + PLACE + 3,
+                        R.drawable.date_white_24dp,
+                        PARTICIPANTS + 3,
+                        meetingPlace,
+                        LocalDate.of(2021, 4, 12)
+                )
+        );
+        assertEquals(new MeetingViewState(expected), meetingViewState);
     }
 
     @Test
@@ -207,8 +252,8 @@ public class ListMeetingViewModelTest {
         meetingsLiveData.setValue(meetings);
 
         // When
-        viewModel.onFilterMeetingsByDateButtonClicked(meetingDate);
-        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(viewModel.getMeetingViewStateLiveData());
+        listMeetingViewModel.onFilterMeetingsByDateButtonClicked(meetingDate);
+        MeetingViewState meetingViewState = LiveDataTestUtils.getOrAwaitValue(listMeetingViewModel.getMeetingViewStateLiveData());
 
         // Then
         List<MeetingViewStateItem> expected = new ArrayList<>();
@@ -225,6 +270,7 @@ public class ListMeetingViewModelTest {
         assertEquals(new MeetingViewState(expected), meetingViewState);
     }
 
+
     private MeetingViewState getDefaultMeetingViewState() {
         List<MeetingViewStateItem> items = new ArrayList<>();
 
@@ -239,89 +285,6 @@ public class ListMeetingViewModelTest {
                     LocalDate.of(2021, 4, 12)
                 )
             );
-        }
-
-        return new MeetingViewState(items);
-    }
-
-    private MeetingViewState getAddedMeetingViewState() {
-        List<MeetingViewStateItem> items = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            items.add(
-                    new MeetingViewStateItem(
-                            "" + i,
-                            TOPIC + i + " - 2021/04/12 - " + PLACE + i,
-                            R.drawable.date_white_24dp,
-                            PARTICIPANTS + i,
-                            PLACE + i,
-                            LocalDate.of(2021, 4, 12)
-                    )
-            );
-        }
-        items.add(
-                new MeetingViewStateItem(
-                        "" + 3,
-                        TOPIC + 3 + " - 2021/04/12 - " + PLACE + 3,
-                        R.drawable.date_white_24dp,
-                        PARTICIPANTS + 3,
-                        PLACE + 3,
-                        LocalDate.of(2021, 4, 12)
-                )
-        );
-
-        return new MeetingViewState(items);
-    }
-
-    private MeetingViewState getDeletedMeetingViewState() {
-        List<MeetingViewStateItem> items = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            items.add(
-                    new MeetingViewStateItem(
-                            "" + i,
-                            TOPIC + i + " - 2021/04/12 - " + PLACE + i,
-                            R.drawable.date_white_24dp,
-                            PARTICIPANTS + i,
-                            PLACE + i,
-                            LocalDate.of(2021, 4, 12)
-                    )
-            );
-        }
-        items.remove(
-                new MeetingViewStateItem(
-                        "" + 3,
-                        TOPIC + 3 + " - 2021/04/12 - " + PLACE + 3,
-                        R.drawable.date_white_24dp,
-                        PARTICIPANTS + 3,
-                        PLACE + 3,
-                        LocalDate.of(2021, 4, 12)
-                )
-        );
-
-        return new MeetingViewState(items);
-    }
-
-    private MeetingViewState getFilteredMeetingByPlaceViewState(String placeFilter) {
-        List<Meeting> meetingsList = listMeetingRepository.getMeetingsList().getValue();
-        List<MeetingViewStateItem> items = new ArrayList<>();
-
-        for (int i = 0; i < meetingsList.size(); i++) {
-            Meeting filteredMeeting = meetingsList.get(i);
-            String filteredMeetingPlace = filteredMeeting.getPlace();
-
-            if (filteredMeetingPlace.equals(placeFilter)) {
-                items.add(
-                        new MeetingViewStateItem(
-                                filteredMeeting.getId(),
-                                filteredMeeting.getTopic() + " - 2021/04/12 - " + filteredMeeting.getPlace(),
-                                filteredMeeting.getAvatar(),
-                                filteredMeeting.getParticipants(),
-                                filteredMeeting.getPlace(),
-                                filteredMeeting.getDate()
-                        )
-                );
-            }
         }
 
         return new MeetingViewState(items);
